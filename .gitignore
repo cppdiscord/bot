@@ -3,3 +3,7 @@
 out
 
 CMakeSettings.json
+
+# token
+config.json
+/src/config.json
