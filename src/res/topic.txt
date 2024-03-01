@@ -1,0 +1,7 @@
+Why did you start learning C++?
+When did you start learning C++?
+What's your favorite C++ GUI library? Why?
+Have you ever tried making your own operating system?
+How often do you code in C++?
+What project are you currently working on?
+What's your favorite IDE for C++?
