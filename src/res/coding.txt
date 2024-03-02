@@ -1,0 +1,7 @@
+What is the difference between C and C++?
+What is the difference between an integer and an unsigned integer?
+How can you get the length of a std::string?
+How can you add a new element to the end of a vector?
+How can you get the size of a std::array?
+How can you get the maximum number of elements that a std::array can hold?
+What's the output of std::cout << 14 % 4;? Why?
