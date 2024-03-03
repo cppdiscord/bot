@@ -10,7 +10,8 @@ using json = nlohmann::json;
 
 std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
-    { "coding", "Get a coding question", cmd::codingCommand }
+    { "coding", "Get a coding question", cmd::codingCommand },
+    { "close", "Close a forum post", cmd::closeCommand }
 };
 
 int main()
@@ -19,7 +20,7 @@ int main()
     json config = json::parse(configFile);
 
     dpp::cluster bot(config["token"]);
-
+    
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
 
