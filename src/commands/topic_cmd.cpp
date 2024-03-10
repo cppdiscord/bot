@@ -1,6 +1,6 @@
 #include "commands.h"
 
-void cmd::topicCommand(const dpp::cluster& bot, const dpp::slashcommand_t& event)
+void cmd::topicCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
     static int index;
     std::string topic = cmd::utils::readFileLine("res/topic.txt", index);

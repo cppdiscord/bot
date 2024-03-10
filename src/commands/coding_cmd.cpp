@@ -1,6 +1,6 @@
 #include "commands.h"
 
-void cmd::codingCommand(const dpp::cluster& bot, const dpp::slashcommand_t& event)
+void cmd::codingCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
     static int index;
     std::string question = cmd::utils::readFileLine("res/coding.txt", index);

@@ -13,14 +13,21 @@ namespace cmd
      * @param bot
      * @param slashcommand event
      */
-    void topicCommand(const dpp::cluster& bot, const dpp::slashcommand_t& event);
+    void topicCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     /**
      * @brief Replies with a C++ related coding question
      * @param bot
      * @param slashcommand event
      */
-    void codingCommand(const dpp::cluster& bot, const dpp::slashcommand_t& event);
+    void codingCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
+    /**
+     * @brief Closes a forum post
+     * @param bot
+     * @param slashcommand event
+     */
+    void closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     namespace utils
     {
