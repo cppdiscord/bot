@@ -5,13 +5,14 @@
 #include <dpp/dpp.h>
 
 #include "commands/commands.h"
+#include "messageManager/message_handler.h"
 
 using json = nlohmann::json;
 
 std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
-    { "close", "Close a forum post", cmd::closeCommand }
+    { "close", "Close a forum post", cmd::closeCommand },
 };
 uint64_t intents = dpp::i_default_intents | dpp::i_message_content;
 
@@ -52,27 +53,24 @@ int main()
     });
 
     bot.on_message_create([&bot](const dpp::message_create_t& event) {
-        dpp::channel* c = dpp::find_channel(event.msg.channel_id);
+       const dpp::channel* c = dpp::find_channel(event.msg.channel_id);
 
-        if (c && c->name == "suggestions") {
-            std::string author = event.msg.author.format_username();
-            if (!event.msg.author.is_bot()) { 
-                dpp::embed result = dpp::embed()
-                    .set_color(dpp::colors::dark_blue)
-                    .set_title("Suggestion")
-                    .set_author(author, "", event.msg.author.get_avatar_url())
-                    .set_description(event.msg.content);
+       if (c && c->name == "suggestions") {
+        msgHandler::sendSuggestion(bot, event);
+       }
+    });
 
-                dpp::message msg(event.msg.channel_id, result);
-                bot.message_create( msg, [ &bot ]( const dpp::confirmation_callback_t& callback ) {
-                    if ( !callback.is_error()) {
-                        dpp::message m = std::get<dpp::message>( callback.value );
-                        bot.message_add_reaction( m.id, m.channel_id, "👍" );
-                        bot.message_add_reaction( m.id, m.channel_id, "👎" );
-                    }
-                });
-                bot.message_delete(event.msg.id, event.msg.channel_id);
-            }
+    bot.on_button_click([&bot](const dpp::button_click_t& event) {
+        if (event.custom_id == "delSugguestion") {
+            msgHandler::btns::deleteSuggestionBtn(bot, event);
+        } else if (event.custom_id == "editSuggestion") {
+            msgHandler::btns::editSuggestionBtn(bot, event);
+        }
+    });
+
+    bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
+        if (event.custom_id == "editModal") {
+            msgHandler::modalForms::editSuggetionModal(bot, event);
         }
     });
 

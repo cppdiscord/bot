@@ -19,6 +19,8 @@ add_executable(bot
 	src/commands/topic_cmd.cpp
 	src/commands/coding_cmd.cpp
 	src/commands/close_cmd.cpp
+	src/messageManager/message_handler.cpp
+	src/messageManager/message_handler.h
 )
 
 target_link_libraries(bot
