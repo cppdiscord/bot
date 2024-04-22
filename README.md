@@ -8,3 +8,7 @@
 
 #### 2. Create the config file
 Create a file called config.json in the src directory: ``{ "token": "bot token" }``
+
+## Contributing
+We appreciate contributions to this community. Connect with other contributors through our [discord server](https://discord.gg/cpp), where we have dedicated channels for chatting and collaborating.
+Also make sure to take a look at our [coding style guides](https://github.com/cppdiscord/website/blob/feature/styleguide/src/frontend/resources/styleguide.md) before contributing.
