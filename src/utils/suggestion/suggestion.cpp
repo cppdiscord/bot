@@ -7,7 +7,7 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
     if (!user.is_bot())
     {
         dpp::embed result = dpp::embed()
-            .set_color(globals::color::default)
+            .set_color(globals::color::defaultColor)
             .set_title("Suggestion")
             .set_author(user.format_username(), "", user.get_avatar_url())
             .set_description(event.msg.content);

@@ -5,7 +5,7 @@ namespace globals
 {
     namespace color
     {
-        static constexpr int default = 0x004482;
+        static constexpr int defaultColor = 0x004482;
     }
 
     namespace emoji
