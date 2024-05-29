@@ -5,23 +5,22 @@
 #include <dpp/dpp.h>
 
 #include "commands/commands.h"
-#include "message_manager/message_handler.h"
+#include "utils/suggestion/suggestion.h"
 
 using json = nlohmann::json;
 
 std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
-    { "close", "Close a forum post", cmd::closeCommand },
+    { "close", "Close a forum post", cmd::closeCommand }
 };
-uint64_t intents = dpp::i_default_intents | dpp::i_message_content;
 
 int main()
 {
     std::ifstream configFile("config.json");
     json config = json::parse(configFile);
 
-    dpp::cluster bot(config["token"], intents);
+    dpp::cluster bot(config["token"], dpp::i_default_intents | dpp::i_message_content);
     
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
@@ -54,20 +53,21 @@ int main()
 
     bot.on_message_create([&bot](const dpp::message_create_t& event) {
         const dpp::channel* c = dpp::find_channel(event.msg.channel_id);
+
         if (c && c->name == "suggestions")
-            MsgHandler::createSuggestion(bot, event);
+            utils::suggestion::createSuggestion(bot, event);
     });
 
     bot.on_button_click([&bot](const dpp::button_click_t& event) {
         if (event.custom_id == "delSugguestion")
-            MsgHandler::Btns::deleteSuggestionBtn(bot, event);
+            utils::suggestion::deleteSuggestion(bot, event);
         else if (event.custom_id == "editSuggestion")
-            MsgHandler::Btns::editSuggestionBtn(bot, event);
+            utils::suggestion::editSuggestion(bot, event);
     });
 
     bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
         if (event.custom_id == "editModal")
-            MsgHandler::ModalForms::showSuggestionEditModal(bot, event);
+            utils::suggestion::showSuggestionEditModal(bot, event);
     });
 
     bot.start(dpp::st_wait);
