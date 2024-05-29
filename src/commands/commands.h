@@ -4,8 +4,6 @@
 #include <iostream>
 #include <dpp/dpp.h>
 
-#define COLOR_DEFAULT 0x004482
-
 namespace cmd
 {
     /**

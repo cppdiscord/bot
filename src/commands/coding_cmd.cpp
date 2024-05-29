@@ -1,4 +1,5 @@
 #include "commands.h"
+#include "../globals/globals.h"
 
 void cmd::codingCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
@@ -6,7 +7,7 @@ void cmd::codingCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     std::string question = cmd::utils::readFileLine("res/coding.txt", index);
 
     dpp::embed embed = dpp::embed()
-        .set_color(COLOR_DEFAULT)
+        .set_color(globals::color::default)
         .add_field(question, "");
     
     dpp::message message(event.command.channel_id, embed);

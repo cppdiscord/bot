@@ -1,4 +1,5 @@
 ﻿#include "commands.h"
+#include "../globals/globals.h"
 
 #include <dpp/unicode_emoji.h>
 
@@ -26,7 +27,7 @@ void cmd::closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
                 return event.reply(dpp::message("[!] Unable to close post.").set_flags(dpp::m_ephemeral));
 
             dpp::embed embed = dpp::embed()
-                .set_color(COLOR_DEFAULT)
+                .set_color(globals::color::default)
                 .add_field("Closed post!", "");
 
             dpp::message message(event.command.channel_id, embed);

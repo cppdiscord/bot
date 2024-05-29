@@ -5,6 +5,7 @@
 #include <dpp/dpp.h>
 
 #include "commands/commands.h"
+#include "utils/suggestion/suggestion.h"
 
 using json = nlohmann::json;
 
@@ -19,7 +20,7 @@ int main()
     std::ifstream configFile("config.json");
     json config = json::parse(configFile);
 
-    dpp::cluster bot(config["token"]);
+    dpp::cluster bot(config["token"], dpp::i_default_intents | dpp::i_message_content);
     
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
@@ -48,6 +49,25 @@ int main()
                 return;
             }
         }
+    });
+
+    bot.on_message_create([&bot](const dpp::message_create_t& event) {
+        const dpp::channel* c = dpp::find_channel(event.msg.channel_id);
+
+        if (c && c->name == "suggestions")
+            utils::suggestion::createSuggestion(bot, event);
+    });
+
+    bot.on_button_click([&bot](const dpp::button_click_t& event) {
+        if (event.custom_id == "delSugguestion")
+            utils::suggestion::deleteSuggestion(bot, event);
+        else if (event.custom_id == "editSuggestion")
+            utils::suggestion::editSuggestion(bot, event);
+    });
+
+    bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
+        if (event.custom_id == "editModal")
+            utils::suggestion::showSuggestionEditModal(bot, event);
     });
 
     bot.start(dpp::st_wait);
