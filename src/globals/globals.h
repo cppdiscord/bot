@@ -10,8 +10,8 @@ namespace globals
 
     namespace emoji
     {
-        static const std::string yes = "1234190364915531977";
-        static const std::string no = "1234190366572281886";
+        static const std::string yes = "1226134958872199229";
+        static const std::string no = "1226134940006219817";
     }
 }
 
