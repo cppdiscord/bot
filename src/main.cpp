@@ -12,7 +12,8 @@ using json = nlohmann::json;
 std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
-    { "close", "Close a forum post", cmd::closeCommand }
+    { "close", "Close a forum post", cmd::closeCommand },
+    { "ticket", "Create support ticket", cmd::createTicket }
 };
 
 int main()
@@ -64,7 +65,24 @@ int main()
         else if (event.custom_id == "editSuggestion")
             utils::suggestion::editSuggestion(bot, event);
     });
-
+    bot.on_button_click([&bot](const dpp::button_click_t& event) {
+        if (event.custom_id == "closeTicketwyn") {
+            dpp::snowflake channel_id = event.command.channel_id;
+            //dpp::snowflake userr_id = event.command.get_issuing_user().id;
+            bot.message_create(dpp::message(channel_id, "Ticket is now closed. This channel will be deleted in 5 seconds."));
+            std::this_thread::sleep_for(std::chrono::seconds(4));
+            bot.message_create(dpp::message(channel_id, "Ticket is now closed."));
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            //thread is not recommended - wyn
+            bot.channel_delete(channel_id);
+           /* for (size_t i = 0; i < ticketed_ids.size(); i++) {
+                if (ticketed_ids[i] == userr_id) {
+                    ticketed_ids.erase(ticketed_ids.begin() + i);
+                    break;
+                }
+            }*/
+        }
+    });
     bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
         if (event.custom_id == "editModal")
             utils::suggestion::showSuggestionEditModal(bot, event);
