@@ -26,6 +26,12 @@ namespace cmd
      * @param slashcommand event
      */
     void closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+     /**
+      *  @brief Closes a forum post
+      * @param bot
+      * @param slashcommand event
+      */
+     void createTicket(dpp::cluster& bot, const dpp::slashcommand_t event);
 
     namespace utils
     {
