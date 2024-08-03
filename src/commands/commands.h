@@ -27,6 +27,13 @@ namespace cmd
      */
     void closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
+    /**
+     * @brief Opens a ticket
+     * @param bot
+     * @param slashcommand event
+     */
+    void ticketCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
     namespace utils
     {
         /**
