@@ -2,7 +2,12 @@
 .vs
 out
 
+# visual studio code
+.vscode
+
+# cmake
 CMakeSettings.json
+build
 
 # token
 config.json

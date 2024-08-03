@@ -37,10 +37,10 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
         bot.message_create(msg, [&bot](const dpp::confirmation_callback_t& callback) {
             if (!callback.is_error())
             {
-                dpp::message m = std::get<dpp::message>(callback.value);
+                dpp::message msg = std::get<dpp::message>(callback.value);
                 
-                bot.message_add_reaction(m.id, m.channel_id, dpp::find_emoji(globals::emoji::yes)->format());
-                bot.message_add_reaction(m.id, m.channel_id, dpp::find_emoji(globals::emoji::no)->format());
+                bot.message_add_reaction(msg.id, msg.channel_id, dpp::find_emoji(globals::emoji::yes)->format());
+                bot.message_add_reaction(msg.id, msg.channel_id, dpp::find_emoji(globals::emoji::no)->format());
             }
         });
         bot.message_delete(event.msg.id, event.msg.channel_id);

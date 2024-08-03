@@ -10,8 +10,13 @@ namespace globals
 
     namespace emoji
     {
-        static const std::string yes = "1226134958872199229";
-        static const std::string no = "1226134940006219817";
+        static constexpr dpp::snowflake yes = 1226134958872199229;
+        static constexpr dpp::snowflake no = 1226134940006219817;
+    }
+
+    namespace category
+    {
+        static constexpr dpp::snowflake ticketId = 1269219921326247967;
     }
 }
 

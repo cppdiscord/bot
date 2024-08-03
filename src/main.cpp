@@ -12,7 +12,8 @@ using json = nlohmann::json;
 std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
-    { "close", "Close a forum post", cmd::closeCommand }
+    { "close", "Close a forum post", cmd::closeCommand },
+    { "ticket", "Open a ticket", cmd::ticketCommand }
 };
 
 int main()
@@ -24,6 +25,7 @@ int main()
     
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
+        bot.set_presence(dpp::presence(dpp::presence_status::ps_online, dpp::activity_type::at_watching, "cppdiscord.com"));
 
         if (dpp::run_once<struct bulkRegister>())
         {
@@ -52,9 +54,9 @@ int main()
     });
 
     bot.on_message_create([&bot](const dpp::message_create_t& event) {
-        const dpp::channel* c = dpp::find_channel(event.msg.channel_id);
+        const dpp::channel* channel = dpp::find_channel(event.msg.channel_id);
 
-        if (c && c->name == "suggestions")
+        if (channel && channel->name == "suggestions")
             utils::suggestion::createSuggestion(bot, event);
     });
 
