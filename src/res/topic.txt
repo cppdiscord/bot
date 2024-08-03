@@ -14,4 +14,3 @@ What are your favorite resources for learning C++?
 What is the most difficult part of C++?
 What are your favorite C++ features?
 What motivated you to learn C++?
-Do you have friends who know C++?
