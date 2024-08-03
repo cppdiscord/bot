@@ -11,3 +11,21 @@ What is a reference?
 Which came first, C or C++?
 How many bytes does a char use?
 What are the parameters of `int main(int argc, char* argv[])` for?
+What is the difference between ++var and var++?
+What is the difference between int const * and int * const?
+What is the "const" keyword? and when is it used?
+What is the virtual function specifier?
+How do you create a constructor?
+How do you create a destructor?
+What is the "protected" access modifier?
+What is the "public" access modifier?
+What is the "private" access modifier?
+What does the sizeof operator do?
+When is the delete keyword used?
+When is the new keyword used?
+What are templates?
+What is type generic programming?
+How do you get the current time?
+How do you get a random number?
+How do you open a file?
+Is C++ memory safe?
