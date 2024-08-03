@@ -5,3 +5,10 @@ Have you ever tried making your own operating system?
 How often do you code in C++?
 What project are you currently working on?
 What's your favorite IDE for C++?
+What was the first programming language you learned?
+What do you like most about C++?
+Which C++ standard versions are you using?
+What build system do you use?
+What compiler do you use, and why?
+What are your favorite resources for learning C++?
+What is the most difficult part of C++?
