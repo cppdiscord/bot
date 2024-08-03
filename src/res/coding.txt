@@ -24,7 +24,7 @@ What does the sizeof operator do?
 When is the delete keyword used?
 When is the new keyword used?
 What are templates?
-What is "Generic programming"?
+What is Generic programming?
 How do you get the current time?
 How do you get a random number?
 How do you open a file?
