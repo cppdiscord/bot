@@ -1,6 +1,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include <dpp/snowflake.h>
+
 namespace globals
 {
     namespace color
@@ -16,7 +18,7 @@ namespace globals
 
     namespace category
     {
-        static constexpr dpp::snowflake ticketId = 1269219921326247967;
+        static constexpr dpp::snowflake ticketId = 1234179713182732374;
     }
 }
 

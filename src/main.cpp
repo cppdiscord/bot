@@ -1,6 +1,4 @@
 #include <iostream>
-#include <map>
-#include <functional>
 #include <fstream>
 #include <dpp/dpp.h>
 
@@ -22,7 +20,7 @@ int main()
     json config = json::parse(configFile);
 
     dpp::cluster bot(config["token"], dpp::i_default_intents | dpp::i_message_content);
-    
+
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
         bot.set_presence(dpp::presence(dpp::presence_status::ps_online, dpp::activity_type::at_watching, "cppdiscord.com"));
