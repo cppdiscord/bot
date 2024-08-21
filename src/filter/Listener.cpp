@@ -21,7 +21,7 @@ bool count_keywords(const std::string& message) {
     for (const auto& keyword : keywords) {
         if (message.find(keyword) != std::string::npos) {
             keyword_count++;
-            if (keyword_count > 1) {
+            if (keyword_count > 2) {
                 return true;
             }
         }
