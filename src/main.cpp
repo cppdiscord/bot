@@ -3,6 +3,7 @@
 #include <dpp/dpp.h>
 
 #include "commands/commands.h"
+#include "filter/Listener.h"
 #include "utils/suggestion/suggestion.h"
 
 using json = nlohmann::json;
@@ -69,6 +70,8 @@ int main()
         if (event.custom_id == "editModal")
             utils::suggestion::showSuggestionEditModal(bot, event);
     });
+
+    Listener listener(bot);
 
     bot.start(dpp::st_wait);
     return 0;
