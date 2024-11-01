@@ -16,6 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install D++ Library
+      run: |
+        wget https://dl.dpp.dev/latest -O dpp.deb
+        sudo dpkg -i dpp.deb
+
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build
 
