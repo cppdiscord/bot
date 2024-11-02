@@ -10,8 +10,9 @@ using json = nlohmann::json;
 std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
-    { "close", "Close a forum post", cmd::closeCommand },
-    { "ticket", "Open a ticket", cmd::ticketCommand }
+    { "close", "Close a ticket or forum post", cmd::closeCommand },
+    { "ticket", "Open a ticket", cmd::ticketCommand },
+    { "code", "Formatting code on Discord", cmd::codeCommand }
 };
 
 int main()

@@ -15,11 +15,11 @@ void cmd::ticketCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
         if (!callback.is_error())
         {
             dpp::channel ticketChannel = std::get<dpp::channel>(callback.value);
-            
+
             dpp::message pingMessage = dpp::message(ticketChannel.id, event.command.get_issuing_user().get_mention() + " opened this ticket.");
             bot.message_create(pingMessage);
 
-            dpp::message message(event.command.channel_id, "Ticket" + ticketChannel.get_mention() + " created!");
+            dpp::message message(event.command.channel_id, "Ticket " + ticketChannel.get_mention() + " created!");
             event.reply(message.set_flags(dpp::m_ephemeral));
         }
     });
