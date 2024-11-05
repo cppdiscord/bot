@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <dpp/dpp.h>
+#include <dpp/cluster.h>
+#include <dpp/dispatcher.h>
 
 namespace cmd
 {
@@ -33,6 +35,13 @@ namespace cmd
      * @param slashcommand event
      */
     void ticketCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
+    /**
+     * @brief Instruction: Formatting C++ Code on Discord
+     * @param bot
+     * @param slashcommand event
+     */
+    void codeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     namespace utils
     {

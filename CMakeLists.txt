@@ -13,7 +13,7 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/res DESTINATION ${CMAKE_CURRENT_BINARY
 add_executable(bot
 	src/main.cpp
 
-	#globals 
+	#globals
 	src/globals/globals.h
 
 	# commands
@@ -23,6 +23,7 @@ add_executable(bot
 	src/commands/coding_cmd.cpp
 	src/commands/close_cmd.cpp
 	src/commands/ticket_cmd.cpp
+	src/commands/code_cmd.cpp
 
 	# utils
 	src/utils/suggestion/suggestion.cpp
