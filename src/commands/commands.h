@@ -43,6 +43,13 @@ namespace cmd
      */
     void codeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
+    /**
+    * @brief Replies with a coding project idea 
+    * @param bot
+    * @param slashcommand event
+    */
+    void projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
     namespace utils
     {
         /**

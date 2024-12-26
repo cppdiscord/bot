@@ -29,3 +29,33 @@ How do you get the current time?
 How do you get a random number?
 How do you open a file?
 Is C++ memory safe?
+What is the difference between a pointer and a reference?
+How can you create a dynamic array in C++?
+How do you initialize a std::map?
+What is the purpose of the namespace keyword?
+What is a lambda function in C++?
+How do you use a std::set?
+What is the difference between struct and class in C++?
+What does the override keyword do?
+How can you handle exceptions in C++?
+What is the role of the explicit keyword?
+What does the keyword inline mean?
+What is the difference between typedef and using?
+How do you iterate over a std::vector?
+How does a for-each loop work in C++?
+What is the difference between malloc and new?
+What is the difference between free and delete?
+What is a virtual destructor, and why is it needed?
+How does polymorphism work in C++?
+How do you implement a pure virtual function?
+What is an abstract class?
+What is a friend function?
+What is the difference between std::list and std::vector?
+How do you declare a constant pointer?
+How do you copy a std::string?
+What is the difference between std::endl and '\n'?
+How can you sort a std::vector?
+How does the static keyword affect a class member?
+How can you create a multi-dimensional array in C++?
+How do you initialize a std::pair?
+What is the purpose of the decltype keyword?
