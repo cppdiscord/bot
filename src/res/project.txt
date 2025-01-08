@@ -1,13 +1,13 @@
-Print "Hello, World!" to the screen
-Display numbers 1 to 10
-Print a square of * symbols
-Calculate the sum of numbers 1 to 10
-Display a simple menu (e.g., Start, Exit)
-Print your name 5 times
-Print even numbers from 2 to 20
-Create a simple countdown from 10 to 1
-Print the alphabet (A to Z)
-Print a triangle of * symbols
+Print "Hello, World!" to the screen.
+Display numbers 1 to 10.
+Print a square of * symbols.
+Calculate the sum of numbers 1 to 10.
+Display a simple menu (e.g., Start, Exit).
+Print your name 5 times.
+Print even numbers from 2 to 20.
+Create a simple countdown from 10 to 1.
+Print the alphabet (A to Z).
+Print a triangle of * symbols.
 Calculate the factorial of a number.
 Check if a number is even or odd.
 Display the multiplication table for a number.

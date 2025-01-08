@@ -24,7 +24,7 @@ add_executable(bot
 	src/commands/close_cmd.cpp
 	src/commands/ticket_cmd.cpp
 	src/commands/code_cmd.cpp
- 	src/commands/project_cmd.cpp"
+ 	src/commands/project_cmd.cpp
 
 	# utils
 	src/utils/suggestion/suggestion.cpp
