@@ -30,7 +30,6 @@ How do you get a random number?
 How do you open a file?
 Is C++ memory safe?
 What is the difference between a pointer and a reference?
-How can you create a dynamic array in C++?
 How do you initialize a std::map?
 What is the purpose of the namespace keyword?
 What is a lambda function in C++?

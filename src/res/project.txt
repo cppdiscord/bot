@@ -2,7 +2,7 @@ Print "Hello, World!" to the screen.
 Display numbers 1 to 10.
 Print a square of * symbols.
 Calculate the sum of numbers 1 to 10.
-Display a simple menu (e.g., Start, Exit).
+Create a simple GUI (e.g. with text and buttons).
 Print your name 5 times.
 Print even numbers from 2 to 20.
 Create a simple countdown from 10 to 1.
@@ -53,7 +53,6 @@ Create a program to simulate a simple game of Rock, Paper, Scissors.
 Calculate compound interest.
 Create a simple inventory management system.
 Print the border of a square with *.
-Simulate flipping a coin multiple times and display the results.
 Display the current system date and time.
 Print a spiral pattern of numbers.
 Calculate the average of numbers in an array.
