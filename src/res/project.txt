@@ -1,0 +1,74 @@
+Print "Hello, World!" to the screen.
+Display numbers 1 to 10.
+Print a square of * symbols.
+Calculate the sum of numbers 1 to 10.
+Create a simple GUI (e.g. with text and buttons).
+Print your name 5 times.
+Print even numbers from 2 to 20.
+Create a simple countdown from 10 to 1.
+Print the alphabet (A to Z).
+Print a triangle of * symbols.
+Calculate the factorial of a number.
+Check if a number is even or odd.
+Display the multiplication table for a number.
+Find the greatest common divisor (GCD) of two numbers.
+Check if a number is a palindrome.
+Calculate the nth Fibonacci number.
+Convert Celsius to Fahrenheit.
+Count the number of vowels in a string.
+Reverse a string.
+Find the largest number in an array.
+Create a program that adds two matrices.
+Sort an array using bubble sort.
+Check if a number is a prime number.
+Create a basic calculator (add, subtract, multiply, divide).
+Generate a random number between 1 and 100.
+Check if a word is an anagram of another word.
+Simulate rolling a pair of dice.
+Print the first n prime numbers.
+Draw a rectangle of * symbols.
+Find the sum of digits in a number.
+Calculate the area of a circle given its radius.
+Create a program that generates a username from a name.
+Implement a basic guessing game.
+Print the elements of a 2D array.
+Create a stopwatch timer.
+Count the occurrences of a character in a string.
+Print Pascal’s triangle.
+Calculate the power of a number (a^b).
+Create a program to simulate a coin toss.
+Sort an array using insertion sort.
+Convert a binary number to decimal.
+Implement a simple to-do list.
+Check if a year is a leap year.
+Print the sum of a series, e.g., 1 + 1/2 + 1/3 + ... + 1/n.
+Implement a simple login system.
+Convert a decimal number to binary.
+Display a pattern like a diamond using *.
+Find the second largest number in an array.
+Check if a string is a palindrome.
+Implement a Caesar cipher for text encryption.
+Find the sum of an array.
+Create a program to simulate a simple game of Rock, Paper, Scissors.
+Calculate compound interest.
+Create a simple inventory management system.
+Print the border of a square with *.
+Display the current system date and time.
+Print a spiral pattern of numbers.
+Calculate the average of numbers in an array.
+Find the maximum and minimum of numbers in an array.
+Implement a program to check for armstrong numbers.
+Create a Tic-Tac-Toe game for two players.
+Count the words in a sentence.
+Implement a simple stopwatch.
+Print the ASCII values of characters in a string.
+Create a program to find all divisors of a number.
+Convert a number from hexadecimal to decimal.
+Generate the multiplication table for 1 to 10.
+Find the LCM of two numbers.
+Check if a string contains only digits.
+Implement a number guessing game.
+Create a hangman game with a predefined word.
+Count the occurrences of each word in a sentence.
+Generate all permutations of a string.
+Implement a basic text-based menu system.
