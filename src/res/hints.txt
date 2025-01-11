@@ -1,0 +1,74 @@
+ Use `std::cout` to print "Hello, World!" to the console.  
+ Use a `for` loop to iterate from 1 to 10 and print each number.  
+ Use nested `for` loops to print a square of `*` symbols.  
+ Use a `for` loop to sum numbers from 1 to   
+ Use a GUI library like Qt or GTK to create a window with text and buttons.  
+ Use a `for` loop to print your name 5 times.  
+ Use a `for` loop with a step of 2 to print even numbers from 2 to   
+ Use a `for` loop to count down from 10 to   
+ Use a `for` loop to iterate through ASCII values and print letters A to Z.  
+ Use nested `for` loops to print a triangle of `*` symbols.  
+ Use a `for` loop to calculate the factorial of a number.  
+ Use the modulus operator `%` to check if a number is even or odd.  
+ Use nested `for` loops to print the multiplication table of a number.  
+ Use the Euclidean algorithm to find the GCD of two numbers.  
+ Convert a number to a string and check if it reads the same backward.  
+ Use a loop or recursion to calculate the nth Fibonacci number.  
+ Use the formula `F = C * 9/5 + 32` to convert Celsius to Fahrenheit.  
+ Use a loop to iterate through a string and count vowels.  
+ Use `std::reverse` or a loop to reverse a string.  
+ Use a loop to find the largest number in an array.  
+ Use nested loops to iterate through matrices and add corresponding elements.  
+ Use the bubble sort algorithm to sort an array.  
+ Use a loop to check if a number is prime.  
+ Use `switch` statements to perform arithmetic operations for a calculator.  
+ Use `rand()` and `srand()` to generate a random number between 1 and   
+ Sort two words and compare them to check if they are anagrams.  
+ Use `rand()` to simulate rolling a pair of dice.  
+ Use a loop and a helper function to print the first n prime numbers.  
+ Use nested loops to print a rectangle of `*` symbols.  
+ Use a loop to extract and sum the digits of a number.  
+ Use the formula `area = π * r^2` to calculate the area of a circle.  
+ Combine parts of a first and last name to generate a username.  
+ Use a loop to prompt the user to guess a number until it is correct.  
+ Use nested loops to print all elements of a 2D array.  
+ Use a loop and the `sleep` function to create a stopwatch timer.  
+ Use a loop to count the occurrences of a character in a string.  
+ Use nested loops and the binomial coefficient formula to print Pascal’s triangle.  
+ Use `pow` or a loop to calculate the power of a number.  
+ Use `rand()` to simulate a coin toss.  
+ Use the insertion sort algorithm to sort an array.  
+ Use a loop to convert a binary number to a decimal.  
+ Use a list or array to implement a to-do list.  
+ Use the leap year rules to check if a year is a leap year.  
+ Use a loop to calculate the sum of a series like 1 + 1/2 + 1/3 + ... + 1/n.  
+ Use a loop to prompt for username and password and validate the login.  
+ Use a loop to convert a decimal number to binary.  
+ Use nested loops to print a diamond pattern of `*` symbols.  
+ Use a loop to find the second largest number in an array.  
+ Compare a string with its reverse to check for a palindrome.  
+ Use a loop to shift each character in a string by a fixed number of positions.  
+ Use a loop to calculate the sum of numbers in an array.  
+ Use `rand()` to simulate Rock, Paper, Scissors.  
+ Use the formula `A = P(1 + r/n)^(nt)` to calculate compound interest.  
+ Use a list or array to create an inventory management system.  
+ Use nested loops to print the border of a square with `*`.  
+ Use the `time` library to display the current date and time.  
+ Use nested loops and careful indexing to print a spiral pattern.  
+ Use a loop to calculate the average of numbers in an array.  
+ Use a loop to find the maximum and minimum numbers in an array.  
+ Use a loop to check if the sum of the cubes of digits equals the number.  
+ Use a 2D array to implement a simple Tic-Tac-Toe game.  
+ Use a loop to count the number of words in a sentence.  
+ Use a loop and `sleep` to implement a simple stopwatch.  
+ Use a loop to print the ASCII values of each character in a string.  
+ Use a loop to find and print all divisors of a number.  
+ Use a loop to convert a hexadecimal number to a decimal.  
+ Use nested loops to print multiplication tables from 1 to   
+ Use the formula `LCM(a, b) = abs(a * b) / GCD(a, b)` to calculate the LCM.  
+ Use a loop to check if a string contains only digits.  
+ Use a loop to prompt the user to guess a number until it is correct.  
+ Use a loop to implement a basic hangman game with a predefined word.  
+ Use a map or dictionary to count the occurrences of words in a sentence.  
+ Use recursion or `std::next_permutation` to generate permutations of a string.  
+ Use a loop and `switch` to create a text-based menu system.  
