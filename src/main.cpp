@@ -2,6 +2,9 @@
 #include <fstream>
 #include <dpp/dpp.h>
 
+#include <thread>
+
+#include "webhooks/github_webhook_handler.h"
 #include "commands/commands.h"
 #include "utils/suggestion/suggestion.h"
 
@@ -16,12 +19,27 @@ std::list<cmdStruct> cmdList = {
     { "project", "Get a project idea", cmd::projectCommand }
 };
 
+// Function to run the HTTP server
+void start_server(dpp::cluster& bot) {
+	httplib::Server server;
+
+	// Handle webhooks
+	server.Post("/webhooks", [&bot](const httplib::Request& req, httplib::Response& res) {
+		handleGitHubWebhook(bot, req, res);
+		});
+
+	std::cout << "Starting server on localhost:8080..." << std::endl;
+	server.listen("localhost", 8080);  // Use port 8080 for HTTP
+}
+
 int main()
 {
     std::ifstream configFile("config.json");
     json config = json::parse(configFile);
 
     dpp::cluster bot(config["token"], dpp::i_default_intents | dpp::i_message_content);
+
+    std::thread server_thread(start_server, std::ref(bot));
 
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
@@ -72,6 +90,12 @@ int main()
             utils::suggestion::showSuggestionEditModal(bot, event);
     });
 
+    httplib::Server server;
+
     bot.start(dpp::st_wait);
+
+	// Wait for the server thread to finish (this is not necessary if you want the server to run indefinitely)
+	server_thread.join();
+
     return 0;
 }
