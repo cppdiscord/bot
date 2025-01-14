@@ -1,0 +1,166 @@
+{
+    "projects": [
+        {
+            "title": "Hello World! Program",
+            "description": "Create a program that prints `Hello, World!` to the screen.",
+            "hint": "Use the [std::cout](https://en.cppreference.com/w/cpp/io/cout) stream to print text to the console.",
+            "level": "Beginner"
+        },
+        {
+            "title": "Numbers 1 to 10",
+            "description": "Display the numbers from 1 to 10 on the screen.",
+            "hint": "Use a `for` loop to iterate from 1 to 10 and print each number. [Learn more about for loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Square Pattern of Stars",
+            "description": "Print a square made of `*` symbols in a grid format.",
+            "hint": "Use nested `for` loops to print a square pattern. [Learn more about nested loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Sum of First 10 Numbers",
+            "description": "Calculate and display the sum of numbers from 1 to 10.",
+            "hint": "Use a `for` loop to iterate from 1 to 10 and accumulate the sum. [Learn about for loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Simple GUI Application",
+            "description": "Create a basic graphical user interface with text and buttons.",
+            "hint": "Consider using a GUI library like Qt or GTK. [Learn more about Qt](https://doc.qt.io/qt-5.15/index.html), [Learn about GTK](https://www.gtk.org/docs)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Print Your Name Multiple Times",
+            "description": "Print your name 5 times on the screen.",
+            "hint": "Use a `for` loop to print your name multiple times. [Learn more about loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Even Numbers from 2 to 20",
+            "description": "Display even numbers starting from 2 up to 20.",
+            "hint": "Use a `for` loop with a step of 2 to print even numbers. [Learn about steps in loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Countdown from 10 to 1",
+            "description": "Create a countdown starting from 10 and ending at 1.",
+            "hint": "Use a `for` loop to iterate from 10 to 1 and print each number. [Learn more about loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Alphabet A to Z",
+            "description": "Print the alphabet from A to Z.",
+            "hint": "Use a `for` loop to iterate through ASCII values of letters. [Learn more about ASCII](https://www.asciitable.com/)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Triangle of Stars",
+            "description": "Print a triangle shape using `*` symbols.",
+            "hint": "Use nested `for` loops to print a triangle pattern. [Learn about nested loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Factorial Calculator",
+            "description": "Calculate the factorial of a given number.",
+            "hint": "Use a `for` loop to multiply numbers from 1 to the given number. [Learn about factorials](https://en.wikipedia.org/wiki/Factorial)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Even or Odd Number Checker",
+            "description": "Check if a number is even or odd.",
+            "hint": "Use the modulus operator `%` to check for even or odd. [Learn about modulus operator](https://www.geeksforgeeks.org/modulo-operator-in-c-cpp-with-examples/)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Multiplication Table",
+            "description": "Print the multiplication table for a given number.",
+            "hint": "Use nested `for` loops to print the multiplication table. [Learn about nested loops](https://en.cppreference.com/w/cpp/language/for)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Greatest Common Divisor (GCD)",
+            "description": "Find the greatest common divisor of two numbers.",
+            "hint": "Use the Euclidean algorithm to find the GCD. [Learn more about GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Palindrome Checker",
+            "description": "Check if a number is a palindrome.",
+            "hint": "Convert the number to a string and check if it reads the same backward. [Learn about palindromes](https://en.wikipedia.org/wiki/Palindrome)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Fibonacci Sequence",
+            "description": "Generate the nth Fibonacci number.",
+            "hint": "Use a loop or recursion to generate Fibonacci numbers. [Learn about Fibonacci](https://en.wikipedia.org/wiki/Fibonacci_sequence)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Celsius to Fahrenheit Converter",
+            "description": "Convert a temperature from Celsius to Fahrenheit.",
+            "hint": "Use the formula `F = C * 9/5 + 32` for conversion. [Learn more about temperature conversion](https://www.rapidtables.com/convert/temperature/celsius-to-fahrenheit.html)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Vowel Counter",
+            "description": "Count the number of vowels in a string.",
+            "hint": "Use a loop to iterate through the string and count vowels. [Learn more about string manipulation](https://en.cppreference.com/w/cpp/string/basic_string)",
+            "level": "Beginner"
+        },
+        {
+            "title": "String Reversal",
+            "description": "Reverse a given string.",
+            "hint": "Use the [std::reverse](https://en.cppreference.com/w/cpp/algorithm/reverse) function or a loop to reverse the string.",
+            "level": "Beginner"
+        },
+        {
+            "title": "Largest Number in an Array",
+            "description": "Find the largest number in an array.",
+            "hint": "Use a loop to iterate through the array and find the maximum value. [Learn about arrays](https://en.cppreference.com/w/cpp/container/array)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Matrix Addition",
+            "description": "Add two matrices together.",
+            "hint": "Use nested loops to iterate through matrices and add corresponding elements. [Learn more about matrices](https://www.wikiwand.com/en/articles/Matrix)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Bubble Sort",
+            "description": "Sort an array using the bubble sort algorithm.",
+            "hint": "Implement the bubble sort algorithm to sort the array. [Learn more about bubble sort](https://en.wikipedia.org/wiki/Bubble_sort)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Prime Number Checker",
+            "description": "Check if a given number is prime.",
+            "hint": "Use a loop to check if the number has any divisors other than 1 and itself. [Learn about prime numbers](https://en.wikipedia.org/wiki/Prime_number)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Basic Calculator",
+            "description": "Create a basic calculator that can add, subtract, multiply, and divide.",
+            "hint": "Use `switch` statements to perform different arithmetic operations. [Learn about switch statements](https://en.cppreference.com/w/cpp/language/switch)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Random Number Generator",
+            "description": "Generate a random number between 1 and 100.",
+            "hint": "Use the `rand()` function and `srand()` to generate random numbers. [Learn more about random numbers](https://en.cppreference.com/w/cpp/numeric/random/rand)",
+            "level": "Beginner"
+        },
+        {
+            "title": "Anagram Checker",
+            "description": "Check if a word is an anagram of another word.",
+            "hint": "Sort both words and compare if they are equal. [Learn more about anagrams](https://en.wikipedia.org/wiki/Anagram)",
+            "level": "Intermediate"
+        },
+        {
+            "title": "Dice Rolling Simulator",
+            "description": "Simulate rolling a pair of dice.",
+            "hint": "Use the `rand()` function to generate random numbers between 1 and 6. [Learn about random numbers](https://en.cppreference.com/w/cpp/numeric/random/rand)",
+            "level": "Beginner"
+        }
+    ]
+}

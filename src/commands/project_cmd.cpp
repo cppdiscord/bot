@@ -1,52 +1,97 @@
 #include "commands.h"
 #include "../globals/globals.h"
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
+
+static bool buttonClicked = false;
 
 static bool buttonClicked = false;
 
 void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
-	static int index;
-	const std::string project = cmd::utils::readFileLine("res/project.txt", index);
+    static int index = -1;
+    index++;
 
-	dpp::embed embed = dpp::embed()
-		.set_color(globals::color::defaultColor)
-		.add_field("Project Idea", project);
+    std::ifstream projectFile("res/project.json");
+    if (!projectFile.is_open()) {
+        event.reply("Failed to open project file.");
+        return;
+    }
 
-	dpp::message message(event.command.channel_id, embed);
+    json data;
+    try {
+        projectFile >> data;
+    } catch (const json::parse_error& e) {
+        event.reply("Failed to parse project file.");
+        return;
+    }
 
-	// Add hint button with index as custom_id
-	message.add_component(
-		dpp::component().add_component(
-			dpp::component()
-			.set_label("Hint")
-			.set_type(dpp::cot_button)
-			.set_style(dpp::cos_primary)
-			.set_id("hint_button_" + std::to_string(index))
-		)
-	);
+    if (!data.contains("projects") || !data["projects"].is_array() || index >= data["projects"].size()) {
+        event.reply("Invalid project data or index out of bounds.");
+        return;
+    }
 
-	event.reply(message);
+    const auto& project = data["projects"][index];
+    if (!project.contains("title") || !project.contains("description")) {
+        event.reply("Project data is missing required fields.");
+        return;
+    }
 
-	// Reset the button click state when the /project command is run
-	buttonClicked = false;
+    const std::string projectTitle = project["title"];
+    const std::string projectDescription = project["description"];
+    const std::string projectHint = project.contains("hint") ? project["hint"] : "No hint available.";
 
-	bot.on_button_click([&bot](const dpp::button_click_t& event)
-		{
-			if (event.custom_id.rfind("hint_button_", 0) == 0 && !buttonClicked)
-			{
-				// Extract index from custom_id
-				int hintIndex = std::stoi(event.custom_id.substr(12)) - 1;
-				const std::string hint = cmd::utils::readFileLine("res/hints.txt", hintIndex);
 
-				dpp::embed hintEmbed = dpp::embed()
-					.set_color(globals::color::defaultColor)
-					.add_field("Hint", hint);
+    dpp::embed embed = dpp::embed()
+        .set_color(globals::color::defaultColor)
+        .add_field("Project Idea", projectTitle)
+        .add_field("Description", projectDescription);
 
-				dpp::message hintMessage(event.command.channel_id, hintEmbed);
-				event.reply(hintMessage);
+    dpp::message message(event.command.channel_id, embed);
 
-				buttonClicked = true;
-			}
-		}
-	);
+    // Add hint button with index as custom_id
+    message.add_component(
+        dpp::component().add_component(
+            dpp::component()
+            .set_label("Hint")
+            .set_type(dpp::cot_button)
+            .set_style(dpp::cos_primary)
+            .set_id("hint_button_" + std::to_string(index))
+        )
+    );
+
+    event.reply(message);
+
+    // Reset the button click state when the /project command is run
+    buttonClicked = false;
+
+    bot.on_button_click([&bot, &data](const dpp::button_click_t& event)
+        {
+            json data;
+            try {
+                std::ifstream projectFile("res/project.json");
+                projectFile >> data;
+            }
+            catch (const json::parse_error& e) {
+                event.reply("Failed to parse project file.");
+                return;
+            }
+            
+            const auto& project = data["projects"][index];
+            const std::string hint = project.contains("hint") ? project["hint"] : "No hint available.";
+            if (event.custom_id.rfind("hint_button_", 0) == 0 && !buttonClicked)
+            {
+
+                dpp::embed hintEmbed = dpp::embed()
+                    .set_color(globals::color::defaultColor)
+                    .add_field("Hint", hint);
+
+                dpp::message hintMessage(event.command.channel_id, hintEmbed);
+                event.reply(hintMessage);
+
+                buttonClicked = true;
+            }
+        }
+    );
 }
