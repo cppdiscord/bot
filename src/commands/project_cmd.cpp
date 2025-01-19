@@ -1,12 +1,7 @@
 #include "commands.h"
 #include "../globals/globals.h"
-#include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
-
-static bool buttonClicked = false;
-
-static bool buttonClicked = false;
 
 void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
@@ -14,26 +9,32 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     index++;
 
     std::ifstream projectFile("res/project.json");
-    if (!projectFile.is_open()) {
+    if (!projectFile.is_open())
+    {
         event.reply("Failed to open project file.");
         return;
     }
 
     json data;
-    try {
+    try
+    {
         projectFile >> data;
-    } catch (const json::parse_error& e) {
+    }
+    catch (const json::parse_error& e)
+    {
         event.reply("Failed to parse project file.");
         return;
     }
 
-    if (!data.contains("projects") || !data["projects"].is_array() || index >= data["projects"].size()) {
+    if (!data.contains("projects") || !data["projects"].is_array() || index >= data["projects"].size())
+    {
         event.reply("Invalid project data or index out of bounds.");
         return;
     }
 
     const auto& project = data["projects"][index];
-    if (!project.contains("title") || !project.contains("description")) {
+    if (!project.contains("title") || !project.contains("description"))
+    {
         event.reply("Project data is missing required fields.");
         return;
     }
@@ -54,44 +55,46 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     message.add_component(
         dpp::component().add_component(
             dpp::component()
-            .set_label("Hint")
-            .set_type(dpp::cot_button)
-            .set_style(dpp::cos_primary)
-            .set_id("hint_button_" + std::to_string(index))
+                .set_label("Hint")
+                .set_type(dpp::cot_button)
+                .set_style(dpp::cos_primary)
+                .set_id("hint_button_" + std::to_string(index))
         )
     );
 
     event.reply(message);
 
-    // Reset the button click state when the /project command is run
-    buttonClicked = false;
+    bot.on_button_click([&bot, &data](const dpp::button_click_t& event) {
+        // Ignore if button id does not start with hint_button_
+        if (event.custom_id.rfind("hint_button_", 0) != 0)
+            return;
 
-    bot.on_button_click([&bot, &data](const dpp::button_click_t& event)
+        // Remove button
+        dpp::message updatedMsg = event.command.get_context_message();
+        updatedMsg.components.clear();
+        bot.message_edit(updatedMsg);
+
+        json data;
+        try
         {
-            json data;
-            try {
-                std::ifstream projectFile("res/project.json");
-                projectFile >> data;
-            }
-            catch (const json::parse_error& e) {
-                event.reply("Failed to parse project file.");
-                return;
-            }
-            
-            const auto& project = data["projects"][index];
-            const std::string hint = project.contains("hint") ? project["hint"] : "No hint available.";
-            if (event.custom_id.rfind("hint_button_", 0) == 0 && !buttonClicked)
-            {
-
-                dpp::embed hintEmbed = dpp::embed()
-                    .set_color(globals::color::defaultColor)
-                    .add_field("Hint", hint);
-
-                dpp::message hintMessage(event.command.channel_id, hintEmbed);
-                event.reply(hintMessage);
-
-                buttonClicked = true;
-            }
+            std::ifstream projectFile("res/project.json");
+            projectFile >> data;
         }
-    );
+        catch (const json::parse_error& e)
+        {
+            event.reply("Failed to parse project file.");
+            return;
+        }
+
+        const int hintButtonIndex = std::stoi(event.custom_id.substr(event.custom_id.rfind('_') + 1));
+        const auto& project = data["projects"][hintButtonIndex];
+        const std::string hint = project.contains("hint") ? project["hint"] : "No hint available.";
+
+        dpp::embed hintEmbed = dpp::embed()
+            .set_color(globals::color::defaultColor)
+            .add_field("Hint", hint);
+
+        dpp::message hintMessage(event.command.channel_id, hintEmbed);
+        event.reply(hintMessage);
+    });
 }
