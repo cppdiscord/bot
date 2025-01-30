@@ -5,8 +5,7 @@ using json = nlohmann::json;
 
 void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
-    static int index = -1;
-    index++;
+    static int index = 0;
 
     std::ifstream projectFile("res/project.json");
     if (!projectFile.is_open())
@@ -26,10 +25,22 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
         return;
     }
 
-    if (!data.contains("projects") || !data["projects"].is_array() || index >= data["projects"].size())
+    if (!data.contains("projects") || !data["projects"].is_array())
     {
-        event.reply("Invalid project data or index out of bounds.");
+        event.reply("Invalid project data.");
         return;
+    }
+
+    // If index exceeds the number of projects, reset it to 0
+
+    /* Debugging purposes
+    std::cout << index << std::endl;
+    std::cout << data["projects"].size() << std::endl;
+    */
+
+    if (index >= data["projects"].size())
+    {
+        index = 0;
     }
 
     const auto& project = data["projects"][index];
@@ -42,7 +53,6 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     const std::string projectTitle = project["title"];
     const std::string projectDescription = project["description"];
     const std::string projectHint = project.contains("hint") ? project["hint"] : "No hint available.";
-
 
     dpp::embed embed = dpp::embed()
         .set_color(globals::color::defaultColor)
@@ -97,4 +107,6 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
         dpp::message hintMessage(event.command.channel_id, hintEmbed);
         event.reply(hintMessage);
     });
+
+    index++;
 }
