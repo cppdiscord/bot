@@ -32,12 +32,6 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     }
 
     // If index exceeds the number of projects, reset it to 0
-
-    /* Debugging purposes
-    std::cout << index << std::endl;
-    std::cout << data["projects"].size() << std::endl;
-    */
-
     if (index >= data["projects"].size())
     {
         index = 0;
