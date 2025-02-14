@@ -9,6 +9,9 @@ out
 CMakeSettings.json
 build
 
+# cache
+.cache
+
 # token
 config.json
 /src/config.json

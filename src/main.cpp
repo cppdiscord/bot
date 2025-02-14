@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include <fstream>
 #include <dpp/dpp.h>
 
@@ -13,7 +14,8 @@ std::list<cmdStruct> cmdList = {
     { "close", "Close a ticket or forum post", cmd::closeCommand },
     { "ticket", "Open a ticket", cmd::ticketCommand },
     { "code", "Formatting code on Discord", cmd::codeCommand },
-    { "project", "Get a project idea", cmd::projectCommand }
+    { "project", "Get a project idea", cmd::projectCommand },
+    { "rule", "Get the server rules", cmd::ruleCommand, { dpp::command_option(dpp::command_option_type::co_integer, "number", "Rule to mention", false) } }
 };
 
 int main()
@@ -36,6 +38,11 @@ int main()
                 slashcommand.set_name(item.name);
                 slashcommand.set_description(item.desc);
                 slashcommand.set_application_id(bot.me.id);
+
+                for (dpp::command_option arg : item.args)
+                {
+                    slashcommand.add_option(arg);
+                }
                 slashcommands.push_back(slashcommand);
             }
             bot.global_bulk_command_create(slashcommands);

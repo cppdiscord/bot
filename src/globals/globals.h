@@ -16,6 +16,11 @@ namespace globals
         static constexpr dpp::snowflake no = 1226134940006219817;
     }
 
+    namespace channel
+    {
+        static constexpr dpp::snowflake rulesId = 1130464978860785705;
+    }
+
     namespace category
     {
         static constexpr dpp::snowflake ticketId = 1234179713182732374;

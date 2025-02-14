@@ -1,7 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include <iostream>
+#include <list>
 #include <dpp/dpp.h>
 #include <dpp/cluster.h>
 #include <dpp/dispatcher.h>
@@ -44,11 +44,18 @@ namespace cmd
     void codeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     /**
-    * @brief Replies with a coding project idea 
+    * @brief Replies with a coding project idea
     * @param bot
     * @param slashcommand event
-    */
+     */
     void projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
+    /**
+    * @brief Replies with the rules
+    * @param bot
+    * @param slashcommand event
+     */
+    void ruleCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     namespace utils
     {
@@ -69,6 +76,8 @@ struct cmdStruct
 
     typedef std::function<void(dpp::cluster&, dpp::slashcommand_t)> cmdFunc;
     cmdFunc function;
+
+    std::list<dpp::command_option> args;
 };
 
 #endif // COMMANDS_H
