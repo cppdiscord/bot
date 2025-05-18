@@ -146,8 +146,8 @@
         },
         {
             "title": "Random Number Generator",
-            "description": "Generate a random number between 1 and 100.",
-            "hint": "Use the `rand()` function and `srand()` to generate random numbers. [Learn more about random numbers](https://en.cppreference.com/w/cpp/numeric/random/rand)",
+            "description": "Generate a pseudo-random number between 1 and 100.",
+            "hint": "Use the random number library to generate pseudo-random numbers. [Learn more about the random number library](https://en.cppreference.com/w/cpp/numeric/random)",
             "level": "Beginner"
         },
         {
@@ -159,7 +159,7 @@
         {
             "title": "Dice Rolling Simulator",
             "description": "Simulate rolling a pair of dice.",
-            "hint": "Use the `rand()` function to generate random numbers between 1 and 6. [Learn about random numbers](https://en.cppreference.com/w/cpp/numeric/random/rand)",
+            "hint": "Use the random number library to generate pseudo-random numbers between 1 and 6. [Learn about the random number library](https://en.cppreference.com/w/cpp/numeric/random)",
             "level": "Beginner"
         }
     ]
