@@ -23,17 +23,17 @@ void cmd::ruleCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     };
 
     const dpp::command_interaction cmdData = event.command.get_command_interaction();
+    
     if (cmdData.options.empty())
         return event.reply(dpp::message("Please follow our <#" + globals::channel::rulesId.str() + ">."));
 
+    if (cmdData.options.empty() || cmdData.options[0].type != dpp::co_integer)
+        return event.reply(dpp::message("Invalid rule number provided.").set_flags(dpp::m_ephemeral));
+
     const auto option = cmdData.options[0];
-
-    if (option.type != dpp::co_integer)
-        return; // should never happen
-
     const long index = std::get<long>(option.value);
 
-    if ((index < 1 || index > rules.size()))
+    if (index < 1 || index > (long)rules.size())
         return event.reply(dpp::message("Rule number " + std::to_string(index) + " does not exist. Visit <#" + globals::channel::rulesId.str() + "> to see all available rules.").set_flags(dpp::m_ephemeral));
 
     const std::string& rule = rules.at(index-1);

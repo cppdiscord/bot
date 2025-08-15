@@ -2,25 +2,38 @@
 
 #include <string>
 #include <fstream>
+#include <vector>
 
 std::string cmd::utils::readFileLine(const std::string& path, int &index)
 {
     std::ifstream file(path);
-
     std::string line;
+
     if (file.is_open())
     {
-        for (int i = 0; std::getline(file, line) && i < index; i++);
-
-        // validate next line
-        if (std::string next; !getline(file, next) || line.length() == 0)
-            index = 0;
-        else
-            index++;
-
+        std::vector<std::string> lines;
+        std::string currentLine;
+        while (std::getline(file, currentLine))
+        {
+            if (!currentLine.empty())
+            {
+                lines.push_back(currentLine);
+            }
+        }
         file.close();
+
+        if (lines.empty())
+        {
+            return "[!] No valid lines found in " + path;
+        }
+
+        index = index % lines.size();
+        line = lines[index];
+        index = (index + 1) % lines.size(); // Prepare for next call
     }
     else
+    {
         line = "[!] Could not open " + path;
+    }
     return line;
 }

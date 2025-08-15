@@ -68,10 +68,58 @@ int main()
     });
 
     bot.on_button_click([&bot](const dpp::button_click_t& event) {
+        // Handle suggestion buttons
         if (event.custom_id == "delSuggestion")
             utils::suggestion::deleteSuggestion(bot, event);
         else if (event.custom_id == "editSuggestion")
             utils::suggestion::editSuggestion(bot, event);
+        // Handle project hint buttons
+        else if (event.custom_id.rfind("hint_button_", 0) == 0)
+        {
+            // Remove button
+            dpp::message updatedMsg = event.command.get_context_message();
+            updatedMsg.components.clear();
+            bot.message_edit(updatedMsg);
+
+            // Parse the index from the button ID
+            const int hintButtonIndex = std::stoi(event.custom_id.substr(event.custom_id.rfind('_') + 1));
+
+            // Load project data
+            std::ifstream projectFile("res/project.json");
+            if (!projectFile.is_open())
+            {
+                event.reply(dpp::message("Failed to open project file.").set_flags(dpp::m_ephemeral));
+                return;
+            }
+
+            json data;
+            try
+            {
+                projectFile >> data;
+            }
+            catch (const json::parse_error& e)
+            {
+                event.reply(dpp::message("Failed to parse project file.").set_flags(dpp::m_ephemeral));
+                return;
+            }
+
+            if (!data.contains("projects") || !data["projects"].is_array() || 
+                hintButtonIndex >= (int)data["projects"].size() || hintButtonIndex < 0)
+            {
+                event.reply(dpp::message("Invalid project data or index.").set_flags(dpp::m_ephemeral));
+                return;
+            }
+
+            const auto& project = data["projects"][hintButtonIndex];
+            const std::string hint = project.contains("hint") ? project["hint"] : "No hint available.";
+
+            dpp::embed hintEmbed = dpp::embed()
+                .set_color(0x004482) // Using the default color directly since we can't access globals here
+                .add_field("Hint", hint);
+
+            dpp::message hintMessage(event.command.channel_id, hintEmbed);
+            event.reply(hintMessage);
+        }
     });
 
     bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
