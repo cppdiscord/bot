@@ -1,4 +1,4 @@
-﻿#include "commands.h"
+#include "commands.h"
 #include "../globals/globals.h"
 
 #include <dpp/channel.h>
@@ -8,18 +8,29 @@
 
 void cmd::closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
-    if (event.command.channel.get_type() == dpp::channel_type::CHANNEL_PUBLIC_THREAD)
+    const dpp::channel* channel = dpp::find_channel(event.command.channel_id);
+    if (!channel)
+    {
+        event.reply(dpp::message("[!] Channel not found").set_flags(dpp::m_ephemeral));
+        return;
+    }
+
+    if (channel->get_type() == dpp::channel_type::CHANNEL_PUBLIC_THREAD)
     {
         bot.thread_get(event.command.channel_id, [&bot, event](const dpp::confirmation_callback_t& callback) {
             if (callback.is_error())
                 return event.reply(dpp::message("[!] Callback error").set_flags(dpp::m_ephemeral));
 
-            auto thread = callback.get<dpp::thread>();
+            dpp::thread thread = callback.get<dpp::thread>();
 
-            if (event.command.channel.owner_id != event.command.member.user_id)
-                return event.reply(dpp::message("You can only close your own posts.").set_flags(dpp::m_ephemeral));
+            bool isOwner = (thread.owner_id == event.command.member.user_id);
+            bool hasManagePermission = event.command.member.has_permission(thread.guild_id, dpp::p_manage_threads);
+            
+            if (!isOwner && !hasManagePermission)
+                return event.reply(dpp::message("You can only close your own posts or you need manage threads permission.").set_flags(dpp::m_ephemeral));
 
             thread.metadata.locked = true;
+            thread.metadata.archived = true;
 
             const std::string newThreadName = dpp::unicode_emoji::lock + std::string(" ") + thread.name;
             thread.set_name(newThreadName);
@@ -37,25 +48,30 @@ void cmd::closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
             });
         });
     }
-    else if (event.command.channel.parent_id == globals::category::ticketId)
+    else if (channel->parent_id == globals::category::ticketId)
     {
+        bool isOwner = false;
+        bool hasManagePermission = event.command.member.has_permission(channel->guild_id, dpp::p_manage_channels);
+        
+        for (const auto& overwrite : channel->permission_overwrites)
+        {
+            if (overwrite.id == event.command.member.user_id && overwrite.type == dpp::overwrite_type::ot_member)
+            {
+                isOwner = true;
+                break;
+            }
+        }
+        
+        if (!isOwner && !hasManagePermission)
+        {
+            event.reply(dpp::message("You can only close your own tickets or you need manage channels permission.").set_flags(dpp::m_ephemeral));
+            return;
+        }
+
         event.reply(dpp::message("Closed ticket!"));
 
-        bot.channel_get(event.command.channel.id, [&bot, event](const dpp::confirmation_callback_t& callback) {
-            if (!callback.is_error())
-            {
-                dpp::channel ticketChannel = std::get<dpp::channel>(callback.value);
-                std::vector<dpp::permission_overwrite> overwrites = ticketChannel.permission_overwrites;
-
-                for (const auto& overwrite : overwrites)
-                {
-                    if (overwrite.type == dpp::overwrite_type::ot_member)
-                    {
-                        bot.channel_edit_permissions(ticketChannel, overwrite.id, 0, dpp::p_view_channel, true);
-                    }
-                }
-            }
-        });
+        // Remove user's access to the ticket
+        bot.channel_edit_permissions(*channel, event.command.member.user_id, 0, dpp::p_view_channel, true);
     }
     else
     {

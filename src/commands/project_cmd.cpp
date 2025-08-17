@@ -31,11 +31,13 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
         return;
     }
 
-    // If index exceeds the number of projects, reset it to 0
-    if (index >= data["projects"].size())
+    if (data["projects"].empty())
     {
-        index = 0;
+        event.reply("No projects available.");
+        return;
     }
+
+    index = index % data["projects"].size();
 
     const auto& project = data["projects"][index];
     if (!project.contains("title") || !project.contains("description"))
@@ -55,7 +57,6 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 
     dpp::message message(event.command.channel_id, embed);
 
-    // Add hint button with index as custom_id
     message.add_component(
         dpp::component().add_component(
             dpp::component()
@@ -67,40 +68,6 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     );
 
     event.reply(message);
-
-    bot.on_button_click([&bot](const dpp::button_click_t& event) {
-        // Ignore if button id does not start with hint_button_
-        if (event.custom_id.rfind("hint_button_", 0) != 0)
-            return;
-
-        // Remove button
-        dpp::message updatedMsg = event.command.get_context_message();
-        updatedMsg.components.clear();
-        bot.message_edit(updatedMsg);
-
-        json data;
-        try
-        {
-            std::ifstream projectFile("res/project.json");
-            projectFile >> data;
-        }
-        catch (const json::parse_error& e)
-        {
-            event.reply("Failed to parse project file.");
-            return;
-        }
-
-        const int hintButtonIndex = std::stoi(event.custom_id.substr(event.custom_id.rfind('_') + 1));
-        const auto& project = data["projects"][hintButtonIndex];
-        const std::string hint = project.contains("hint") ? project["hint"] : "No hint available.";
-
-        dpp::embed hintEmbed = dpp::embed()
-            .set_color(globals::color::defaultColor)
-            .add_field("Hint", hint);
-
-        dpp::message hintMessage(event.command.channel_id, hintEmbed);
-        event.reply(hintMessage);
-    });
-
-    index++;
+    
+    index = (index + 1) % data["projects"].size();
 }

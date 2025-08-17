@@ -2,6 +2,7 @@
 #define COMMANDS_H
 
 #include <list>
+#include <functional>
 #include <dpp/dpp.h>
 #include <dpp/cluster.h>
 #include <dpp/dispatcher.h>
@@ -74,7 +75,7 @@ struct cmdStruct
     std::string name;
     std::string desc;
 
-    typedef std::function<void(dpp::cluster&, dpp::slashcommand_t)> cmdFunc;
+    typedef std::function<void(dpp::cluster&, const dpp::slashcommand_t&)> cmdFunc;
     cmdFunc function;
 
     std::list<dpp::command_option> args;
