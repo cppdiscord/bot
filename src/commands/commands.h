@@ -78,6 +78,7 @@ struct cmdStruct
     cmdFunc function;
 
     std::list<dpp::command_option> args;
+    dpp::permissions permissions;
 };
 
 #endif // COMMANDS_H

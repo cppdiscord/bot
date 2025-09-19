@@ -12,10 +12,10 @@ std::list<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
     { "close", "Close a ticket or forum post", cmd::closeCommand },
-    { "ticket", "Open a ticket", cmd::ticketCommand },
+    { "ticket", "Open a ticket", cmd::ticketCommand, { dpp::command_option(dpp::command_option_type::co_user, "participant", "Add participant", false) }},
     { "code", "Formatting code on Discord", cmd::codeCommand },
     { "project", "Get a project idea", cmd::projectCommand },
-    { "rule", "Get the server rules", cmd::ruleCommand, { dpp::command_option(dpp::command_option_type::co_integer, "number", "Rule to mention", false) } }
+    { "rule", "Get the server rules", cmd::ruleCommand, { dpp::command_option(dpp::command_option_type::co_integer, "number", "Rule to mention", false) }}
 };
 
 int main()
@@ -40,9 +40,11 @@ int main()
                 slashCommand.set_application_id(bot.me.id);
 
                 for (const dpp::command_option& arg : item.args)
-                {
                     slashCommand.add_option(arg);
-                }
+
+                if (item.permissions)
+                    slashCommand.set_default_permissions(dpp::permission(item.permissions));
+
                 slashcommands.push_back(slashCommand);
             }
             bot.global_bulk_command_create(slashcommands);
