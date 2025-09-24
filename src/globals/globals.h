@@ -25,6 +25,11 @@ namespace globals
     {
         static constexpr dpp::snowflake ticketId = 1234179713182732374;
     }
+
+    namespace role
+    {
+        static constexpr dpp::snowflake staffId = 1130473404345110621;
+    }
 }
 
 #endif // GLOBALS_H
