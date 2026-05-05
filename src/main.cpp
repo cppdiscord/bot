@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 #include <fstream>
 #include <dpp/dpp.h>
 
@@ -8,7 +8,7 @@
 
 using json = nlohmann::json;
 
-std::list<cmdStruct> cmdList = {
+std::vector<cmdStruct> cmdList = {
     { "topic", "Get a topic question", cmd::topicCommand },
     { "coding", "Get a coding question", cmd::codingCommand },
     { "close", "Close a ticket or forum post", cmd::closeCommand },
