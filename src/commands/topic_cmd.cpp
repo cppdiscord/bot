@@ -3,7 +3,7 @@
 
 void cmd::topicCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
-    static int index;
+    int index = cmd::utils::getRandomNumber(0, 15);
     const std::string topic = cmd::utils::readFileLine("res/topic.txt", index);
 
     const dpp::embed embed = dpp::embed()
