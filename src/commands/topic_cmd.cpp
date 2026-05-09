@@ -3,8 +3,8 @@
 
 void cmd::topicCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
 {
-    static int index;
-    const std::string topic = cmd::utils::readFileLine("res/topic.txt", index);
+    int index = cmd::utils::getRandomNumber(0, 15);
+    const std::string topic = cmd::utils::readFileLineCached("res/topic.txt", index);
 
     const dpp::embed embed = dpp::embed()
         .set_color(globals::color::defaultColor)
