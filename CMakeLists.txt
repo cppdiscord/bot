@@ -1,10 +1,20 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.25)
 
 project(bot LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-find_package(dpp CONFIG REQUIRED)
+
+# find_package(dpp CONFIG REQUIRED)
+include(FetchContent)
+
+FetchContent_Declare(
+    dpp
+    GIT_REPOSITORY https://github.com/brainboxdotcc/DPP.git
+    GIT_TAG v10.1.4
+)
+
+FetchContent_MakeAvailable(dpp)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/config.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
@@ -29,8 +39,10 @@ add_executable(bot
 	# utils
 	src/utils/suggestion/suggestion.cpp
 	src/utils/suggestion/suggestion.h
+	src/utils/moderation/moderation.cpp
+	src/utils/moderation/moderation.h
 )
 
 target_link_libraries(bot
-	PRIVATE dpp::dpp
+	PRIVATE dpp
 )

@@ -29,6 +29,7 @@ namespace globals
     namespace role
     {
         static constexpr dpp::snowflake staffId = 1130473404345110621;
+        static constexpr dpp::snowflake jailId = 1506351798900887582;
     }
 }
 

@@ -31,7 +31,7 @@ void cmd::ruleCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     if (option.type != dpp::co_integer)
         return; // should never happen
 
-    const long index = std::get<long>(option.value);
+    const auto index = std::get<long long>(option.value);
 
     if ((index < 1 || index > rules.size()))
         return event.reply(dpp::message("Rule number " + std::to_string(index) + " does not exist. Visit <#" + globals::channel::rulesId.str() + "> to see all available rules.").set_flags(dpp::m_ephemeral));
