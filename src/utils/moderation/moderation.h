@@ -16,7 +16,7 @@ public:
     /**
     * @brief Analyzes the message for cross-posting/spam
     *        Duplicate content by same user in:
-    *        - 2 channels: Delete the message and dm a warning
+    *        - 2 channels: Delete the message and send a warning
     *        - 3+ channels: Delete all messages and jail the user
     * @param event message create event
     * @return true if the message was deleted/handled, false otherwise
@@ -24,7 +24,7 @@ public:
     bool handleMessage(const dpp::message_create_t& event);
 
 private:
-    static constexpr auto crossPostWindow = std::chrono::seconds{5};
+    static constexpr auto crossPostWindow = std::chrono::seconds{10};
     static constexpr auto cleanupThreshold = std::chrono::seconds{180};
 
     static constexpr std::string_view warningMsg =
@@ -48,7 +48,7 @@ private:
         std::vector<PostedMessage> messages;
     };
 
-    std::string getMessageSignature(const dpp::message& msg) const;
+    static std::string makeMessageSignature(const dpp::message& msg);
     void cleanupOldEntries(const std::chrono::steady_clock::time_point& now);
 
     dpp::cluster& bot;

@@ -19,6 +19,7 @@ namespace globals
     namespace channel
     {
         static constexpr dpp::snowflake rulesId = 1130464978860785705;
+        static constexpr dpp::snowflake jailId = 1513269975844917409;
     }
 
     namespace category

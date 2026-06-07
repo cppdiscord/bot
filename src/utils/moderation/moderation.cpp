@@ -7,16 +7,13 @@ void ModerationService::cleanupOldEntries(const std::chrono::steady_clock::time_
 {
     const auto threshold = now - cleanupThreshold;
 
-    for (auto it = state.begin(); it != state.end(); )
+    std::erase_if(state, [&](const auto& entry)
     {
-        if (it->second.lastPostTime < threshold)
-            it = state.erase(it);
-        else
-            ++it;
-    }
+        return entry.second.lastPostTime < threshold;
+    });
 }
 
-std::string ModerationService::getMessageSignature(const dpp::message& msg) const
+std::string ModerationService::makeMessageSignature(const dpp::message& msg)
 {
     std::string signature = msg.content;
 
@@ -53,7 +50,7 @@ bool ModerationService::handleMessage(const dpp::message_create_t& event)
 
     const auto now = std::chrono::steady_clock::now();
     const auto userId = event.msg.author.id;
-    const std::string signature = getMessageSignature(event.msg);
+    const std::string signature = makeMessageSignature(event.msg);
 
     bool warn = false;
     bool jail = false;
@@ -96,10 +93,10 @@ bool ModerationService::handleMessage(const dpp::message_create_t& event)
     {
         bot.message_delete(event.msg.id, targetChannel);
 
-        bot.direct_message_create(
-            userId,
-            dpp::message(std::string(warningMsg))
-        );
+        dpp::message warnMessage(targetChannel,
+            dpp::utility::user_mention(userId) + " " + std::string(warningMsg));
+        warnMessage.set_allowed_mentions(false, false, false, false, {userId}, {});
+        bot.message_create(warnMessage);
 
         return true;
     }
@@ -117,10 +114,10 @@ bool ModerationService::handleMessage(const dpp::message_create_t& event)
             globals::role::jailId
         );
 
-        bot.direct_message_create(
-            userId,
-            dpp::message(std::string(jailMsg))
-        );
+        dpp::message jailMessage(globals::channel::jailId,
+            dpp::utility::user_mention(userId) + " " + std::string(jailMsg));
+        jailMessage.set_allowed_mentions(false, false, false, false, {userId}, {});
+        bot.message_create(jailMessage);
 
         return true;
     }
