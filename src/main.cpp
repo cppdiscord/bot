@@ -5,6 +5,7 @@
 
 #include "commands/commands.h"
 #include "utils/suggestion/suggestion.h"
+#include "utils/moderation/moderation.h"
 
 using json = nlohmann::json;
 
@@ -24,6 +25,7 @@ int main()
     json config = json::parse(configFile);
 
     dpp::cluster bot(config["token"], dpp::i_default_intents | dpp::i_message_content);
+    ModerationService moderationService(bot);
 
     bot.on_ready([&bot](const dpp::ready_t& event) {
         std::cout << "[!] Bot ready" << std::endl;
@@ -62,7 +64,10 @@ int main()
         }
     });
 
-    bot.on_message_create([&bot](const dpp::message_create_t& event) {
+    bot.on_message_create([&bot, &moderationService](const dpp::message_create_t& event) {
+        if (moderationService.handleMessage(event))
+            return;
+
         const dpp::channel* channel = dpp::find_channel(event.msg.channel_id);
 
         if (channel && channel->name == "suggestions")
