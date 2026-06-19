@@ -7,13 +7,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
-FetchContent_Declare(
-    dpp
-    GIT_REPOSITORY https://github.com/brainboxdotcc/DPP.git
-    GIT_TAG v10.1.4
-)
+find_package(dpp CONFIG QUIET)
 
-FetchContent_MakeAvailable(dpp)
+if (NOT dpp_FOUND)
+    message(STATUS "DPP not found, fetching from GitHub...")
+    FetchContent_Declare(
+        dpp
+        GIT_REPOSITORY https://github.com/brainboxdotcc/DPP.git
+        GIT_TAG v10.1.4
+    )
+    FetchContent_MakeAvailable(dpp)
+
+	if (NOT TARGET dpp::dpp AND TARGET dpp)
+        add_library(dpp::dpp ALIAS dpp)
+    endif()
+else()
+    message(STATUS "Using system-installed DPP")
+endif()
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/config.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
@@ -42,6 +52,4 @@ add_executable(bot
 	src/utils/moderation/moderation.h
 )
 
-target_link_libraries(bot
-	PRIVATE dpp
-)
+target_link_libraries(bot PRIVATE dpp::dpp)
