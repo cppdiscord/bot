@@ -19,6 +19,7 @@ jobs:
         host: ${{ secrets.PRODUCTION_HOST }}
         username: ${{ secrets.PRODUCTION_USER }}
         key: ${{ secrets.PRODUCTION_KEY }}
+        timeout: 60m
         script: |
           # Run deploy script with production config
           bash /home/production/deploy.sh '${{ secrets.PRODUCTION_CONF }}'
