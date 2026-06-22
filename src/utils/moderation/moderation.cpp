@@ -72,7 +72,13 @@ bool ModerationService::handleMessage(const dpp::message_create_t& event)
             userState.messages.clear();
         }
 
-        userState.messages.push_back({event.msg.channel_id, event.msg.id});
+        const dpp::snowflake currentChannel = event.msg.channel_id;
+        const bool channelAlreadySeen = std::any_of(
+            userState.messages.begin(), userState.messages.end(),
+            [&](const PostedMessage& m) { return m.channelId == currentChannel; });
+
+        if (!channelAlreadySeen)
+            userState.messages.push_back({currentChannel, event.msg.id});
 
         const std::size_t count = userState.messages.size();
 
