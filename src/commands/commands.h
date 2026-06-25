@@ -66,6 +66,22 @@ namespace cmd
          * @return content of next line
          */
         std::string readFileLine(const std::string& path, int& index);
+
+        /**
+         * @brief Read a line of a file, but cached
+         * @param path to the file
+         * @param index (not line number)
+         * @return content of that line
+        */
+        std::string readFileLineCached(const std::string& path, int index);
+
+        /**
+         * @brief Gets a random number between range (min, max)
+         * @param min Lower bounds
+         * @param max Upper bounds
+         * @return 
+        */
+        int getRandomNumber(int min, int max);
     }
 }
 
