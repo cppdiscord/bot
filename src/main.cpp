@@ -79,6 +79,8 @@ int main()
             utils::suggestion::deleteSuggestion(bot, event);
         else if (event.custom_id == "editSuggestion")
             utils::suggestion::editSuggestion(bot, event);
+        else if (event.custom_id.starts_with("hint_button_"))
+            cmd::handleProjectHintButton(bot, event);
     });
 
     bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
