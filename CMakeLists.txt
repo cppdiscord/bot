@@ -25,7 +25,11 @@ else()
     message(STATUS "Using system-installed DPP")
 endif()
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/config.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/config.json)
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/config.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+else()
+	message(STATUS "src/config.json not found; skipping config copy")
+endif()
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/src/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(bot
