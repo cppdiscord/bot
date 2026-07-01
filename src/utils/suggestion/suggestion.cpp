@@ -6,6 +6,12 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
     dpp::user user = event.msg.author;
     if (!user.is_bot())
     {
+        bot.message_delete(event.msg.id, event.msg.channel_id);
+        if (event.msg.content.empty())
+        {
+            event.reply(dpp::message("You cannot send an empty suggestion. Please add text to your message.").set_flags(dpp::m_ephemeral));
+            return;
+        }
         dpp::embed result = dpp::embed()
             .set_color(globals::color::defaultColor)
             .set_title("Suggestion")
@@ -59,7 +65,6 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
                 }
             }
         });
-        bot.message_delete(event.msg.id, event.msg.channel_id);
     }
 }
 
