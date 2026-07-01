@@ -1,5 +1,8 @@
 #include "globals.h"
 
+#include <cstdint>
+#include <dpp/nlohmann/json.hpp>
+
 namespace
 {
     bool parseSnowflake(const nlohmann::json& config, const char* key, dpp::snowflake& out)
