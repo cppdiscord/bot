@@ -32,6 +32,7 @@ add_executable(bot
 	src/main.cpp
 
 	#globals
+	src/globals/globals.cpp
 	src/globals/globals.h
 
 	# commands

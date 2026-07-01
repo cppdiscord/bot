@@ -2,6 +2,8 @@
 #define GLOBALS_H
 
 #include <dpp/snowflake.h>
+#include <nlohmann/json.hpp>
+#include <string>
 
 namespace globals
 {
@@ -10,27 +12,35 @@ namespace globals
         static constexpr int defaultColor = 0x004482;
     }
 
+    /**
+     * @brief Load configured IDs used by the bot.
+     * @param config Parsed config JSON object.
+     * @param error Output error message when loading fails.
+     * @return true when all required IDs were loaded successfully.
+     */
+    bool loadFromConfig(const nlohmann::json& config, std::string& error);
+
     namespace emoji
     {
-        static constexpr dpp::snowflake yes = 1226134958872199229;
-        static constexpr dpp::snowflake no = 1226134940006219817;
+        extern dpp::snowflake yes;
+        extern dpp::snowflake no;
     }
 
     namespace channel
     {
-        static constexpr dpp::snowflake rulesId = 1130464978860785705;
-        static constexpr dpp::snowflake jailId = 1513269975844917409;
+        extern dpp::snowflake rulesId;
+        extern dpp::snowflake jailId;
     }
 
     namespace category
     {
-        static constexpr dpp::snowflake ticketId = 1234179713182732374;
+        extern dpp::snowflake ticketId;
     }
 
     namespace role
     {
-        static constexpr dpp::snowflake staffId = 1130473404345110621;
-        static constexpr dpp::snowflake jailId = 1506351798900887582;
+        extern dpp::snowflake staffId;
+        extern dpp::snowflake jailId;
     }
 }
 
