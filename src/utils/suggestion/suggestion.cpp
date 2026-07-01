@@ -44,23 +44,28 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
             if (!callback.is_error())
             {
                 const dpp::message msg = std::get<dpp::message>(callback.value);
+                const dpp::snowflake messageId = msg.id;
+                const dpp::snowflake channelId = msg.channel_id;
 
                 const auto yesEmoji = dpp::find_emoji(globals::emoji::yes);
                 const auto noEmoji = dpp::find_emoji(globals::emoji::no);
 
                 if (yesEmoji && noEmoji)
                 {
-                    bot.message_add_reaction(msg.id, msg.channel_id, yesEmoji->format(), [&bot, &msg, &noEmoji](const dpp::confirmation_callback_t& reactionCallback) {
+                    const std::string yesEmojiText = yesEmoji->format();
+                    const std::string noEmojiText = noEmoji->format();
+
+                    bot.message_add_reaction(messageId, channelId, yesEmojiText, [&bot, messageId, channelId, noEmojiText](const dpp::confirmation_callback_t& reactionCallback) {
                         if (!reactionCallback.is_error())
-                            bot.message_add_reaction(msg.id, msg.channel_id, noEmoji->format());
+                            bot.message_add_reaction(messageId, channelId, noEmojiText);
                     });
                 }
                 else
                 {
                     // fallback
-                    bot.message_add_reaction(msg.id, msg.channel_id, "👍", [&bot, &msg](const dpp::confirmation_callback_t& reactionCallback) {
+                    bot.message_add_reaction(messageId, channelId, "👍", [&bot, messageId, channelId](const dpp::confirmation_callback_t& reactionCallback) {
                         if (!reactionCallback.is_error())
-                            bot.message_add_reaction(msg.id, msg.channel_id, "👎");
+                            bot.message_add_reaction(messageId, channelId, "👎");
                     });
                 }
             }

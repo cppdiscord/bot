@@ -51,6 +51,13 @@ namespace cmd
     void projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     /**
+     * @brief Handles hint button clicks for project ideas
+     * @param bot cluster
+     * @param event button click event
+     */
+    void handleProjectHintButton(dpp::cluster& bot, const dpp::button_click_t& event);
+
+    /**
      * @brief Replies with the rules
      * @param bot cluster
      * @param event slash command event

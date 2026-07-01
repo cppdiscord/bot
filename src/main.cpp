@@ -4,6 +4,7 @@
 #include <dpp/dpp.h>
 
 #include "commands/commands.h"
+#include "globals/globals.h"
 #include "utils/suggestion/suggestion.h"
 #include "utils/moderation/moderation.h"
 
@@ -23,6 +24,13 @@ int main()
 {
     std::ifstream configFile("config.json");
     json config = json::parse(configFile);
+
+    std::string globalsConfigError;
+    if (!globals::loadFromConfig(config, globalsConfigError))
+    {
+        std::cerr << "[!] Invalid configuration: " << globalsConfigError << std::endl;
+        return 1;
+    }
 
     dpp::cluster bot(config["token"], dpp::i_default_intents | dpp::i_message_content);
     ModerationService moderationService(bot);
@@ -79,6 +87,8 @@ int main()
             utils::suggestion::deleteSuggestion(bot, event);
         else if (event.custom_id == "editSuggestion")
             utils::suggestion::editSuggestion(bot, event);
+        else if (event.custom_id.starts_with("hint_button_"))
+            cmd::handleProjectHintButton(bot, event);
     });
 
     bot.on_form_submit([&bot](const dpp::form_submit_t& event) {
