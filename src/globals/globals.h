@@ -2,7 +2,6 @@
 #define GLOBALS_H
 
 #include <dpp/snowflake.h>
-#include <nlohmann/json.hpp>
 #include <string>
 
 namespace globals
