@@ -63,7 +63,7 @@ namespace globals
             {"channel_rules_id", channel::rulesId},
             {"channel_jail_id", channel::jailId},
             {"category_ticket_id", category::ticketId},
-            {"role_staff_id", role::staffId},
+            {"role_staff_id", role::staffId},c 
             {"role_jail_id", role::jailId}
         };
 
