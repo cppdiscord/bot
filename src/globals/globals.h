@@ -6,6 +6,9 @@
 
 namespace globals
 {
+    namespace channels {
+    constexpr dpp::snowflake HELP_CHANNEL_ID = 1130466207431135394ULL;
+    }
     namespace color
     {
         static constexpr int defaultColor = 0x004482;
