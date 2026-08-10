@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <dpp/nlohmann/json.hpp>
+#include <utility>
 
 namespace
 {
@@ -18,7 +19,7 @@ namespace
             return true;
         }
 
-        if (value.is_number_unsigned() || value.is_number_integer())
+        if (value.is_number_unsigned())
         {
             out = dpp::snowflake(value.get<uint64_t>());
             return true;
@@ -55,46 +56,24 @@ namespace globals
 
     bool loadFromConfig(const nlohmann::json& config, std::string& error)
     {
-        if (!parseSnowflake(config, "emoji_yes_id", emoji::yes))
+        constexpr std::pair<const char*, dpp::snowflake&> configEntries[] =
         {
-            error = "Missing or invalid config key: emoji_yes_id";
-            return false;
-        }
+            {"emoji_yes_id", emoji::yes},
+            {"emoji_no_id", emoji::no},
+            {"channel_rules_id", channel::rulesId},
+            {"channel_jail_id", channel::jailId},
+            {"category_ticket_id", category::ticketId},
+            {"role_staff_id", role::staffId},
+            {"role_jail_id", role::jailId}
+        };
 
-        if (!parseSnowflake(config, "emoji_no_id", emoji::no))
+        for (const auto& [name, id] : configEntries)
         {
-            error = "Missing or invalid config key: emoji_no_id";
-            return false;
-        }
-
-        if (!parseSnowflake(config, "channel_rules_id", channel::rulesId))
-        {
-            error = "Missing or invalid config key: channel_rules_id";
-            return false;
-        }
-
-        if (!parseSnowflake(config, "channel_jail_id", channel::jailId))
-        {
-            error = "Missing or invalid config key: channel_jail_id";
-            return false;
-        }
-
-        if (!parseSnowflake(config, "category_ticket_id", category::ticketId))
-        {
-            error = "Missing or invalid config key: category_ticket_id";
-            return false;
-        }
-
-        if (!parseSnowflake(config, "role_staff_id", role::staffId))
-        {
-            error = "Missing or invalid config key: role_staff_id";
-            return false;
-        }
-
-        if (!parseSnowflake(config, "role_jail_id", role::jailId))
-        {
-            error = "Missing or invalid config key: role_jail_id";
-            return false;
+            if (!parseSnowFlake(config, name, id))
+            {
+                error = "Missing or invalid config key: " + std::string(name);
+                return false;
+            }
         }
 
         return true;
