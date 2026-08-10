@@ -91,7 +91,7 @@ struct cmdStruct
     typedef std::function<void(dpp::cluster&, dpp::slashcommand_t)> cmdFunc;
     cmdFunc function;
 
-    std::list<dpp::command_option> args;
+    std::vector<dpp::command_option> args;
     dpp::permissions permissions;
 };
 
