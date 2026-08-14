@@ -112,7 +112,12 @@ void utils::suggestion::editSuggestion(dpp::cluster& bot, const dpp::button_clic
 
 void utils::suggestion::showSuggestionEditModal(dpp::cluster& bot, const dpp::form_submit_t& event)
 {
-    std::string v = std::get<std::string>(event.components[0].components[0].value);
+    if (event.components.empty() || event.components[0].components.empty()) {
+        event.reply(dpp::message("Please fill in the suggestion input field.").set_flags(dpp::m_ephemeral));
+        return;
+    }
+
+    auto v = std::get<std::string>(event.components[0].components[0].value);
 
     bot.message_get(event.command.msg.id, event.command.msg.channel_id, [&bot, event, v](const dpp::confirmation_callback_t& callback) {
         if (!callback.is_error())
