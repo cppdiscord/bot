@@ -1,0 +1,227 @@
+What is undefined behavior and how can you avoid it?
+What is the One Definition Rule (ODR) and why is it important?
+What is the difference between static and dynamic linking?
+How does the C++ compilation process work from source to executable?
+What is the difference between a translation unit and a module?
+What is the as-if rule in C++?
+What is the difference between stack and heap memory allocation?
+What is memory alignment and why is it important?
+How does cache memory affect C++ performance?
+What is false sharing in multithreaded C++ programs?
+What is the difference between copy elision and RVO (Return Value Optimization)?
+What is the difference between NRVO and RVO?
+What is the difference between constexpr and consteval?
+What is the difference between constinit and constexpr?
+What is the difference between std::is_constant_evaluated and constexpr?
+What is the difference between if constexpr and if statement?
+What is the difference between fold expressions and recursive templates?
+What is the difference between structured bindings and std::tie?
+What is the difference between designated initializers and aggregate initialization?
+What is the difference between modules and header files?
+What is the difference between import and include in C++20?
+What is the difference between contracts and assertions?
+What is the difference between std::expect and std::assume?
+What is the difference between [[likely]] and [[unlikely]] attributes?
+What is the difference between [[nodiscard]] and [[maybe_unused]]?
+What is the difference between [[deprecated]] and [[noreturn]]?
+What is the difference between [[carries_dependency]] and [[noreturn]]?
+What is the difference between [[fallthrough]] and [[nodiscard]]?
+What is the difference between [[gnu::unused]] and [[maybe_unused]]?
+What is the difference between std::source_location and __LINE__?
+What is the difference between std::stacktrace and std::exception?
+What is the difference between std::identity and std::forward?
+What is the difference between std::invoke and std::apply?
+What is the difference between std::bind_front and std::bind?
+What is the difference between std::to_address and std::addressof?
+What is the difference between std::assume_aligned and std::align?
+What is the difference between std::launder and std::addressof?
+What is the difference between std::bit_cast and reinterpret_cast?
+What is the difference between std::start_lifetime_as and std::launder?
+What is the difference between std::to_chars and std::from_chars?
+What is the difference between std::format and std::stringstream?
+What is the difference between std::print and std::cout?
+What is the difference between std::to_string and std::format?
+What is the difference between std::chrono::zoned_time and std::chrono::time_zone?
+What is the difference between std::chrono::utc_clock and std::chrono::system_clock?
+What is the difference between std::chrono::tai_clock and std::chrono::utc_clock?
+What is the difference between std::chrono::gps_clock and std::chrono::utc_clock?
+What is the difference between std::chrono::file_clock and std::chrono::system_clock?
+What is the difference between std::chrono::hh_mm_ss and std::chrono::duration?
+What is the difference between std::chrono::day and std::chrono::month?
+What is the difference between std::chrono::year and std::chrono::year_month_day?
+What is the difference between std::chrono::weekday and std::chrono::weekday_indexed?
+What is the difference between std::chrono::leap_second and std::chrono::time_zone?
+What is the difference between std::chrono::tzdb and std::chrono::time_zone?
+What is the difference between std::chrono::get_tzdb and std::chrono::get_tzdb_list?
+What is the difference between std::chrono::current_zone and std::chrono::locate_zone?
+What is the difference between std::chrono::zoned_time and std::chrono::local_time?
+What is the difference between std::chrono::zoned_traits and std::chrono::time_zone?
+What is the difference between std::chrono::nozone and std::chrono::time_zone?
+What is the difference between std::chrono::sys_info and std::chrono::local_info?
+What is the difference between std::chrono::choose and std::chrono::time_zone?
+What is the difference between std::chrono::ambiguous_local_time and std::chrono::nonexistent_local_time?
+What is the difference between std::chrono::tzdb_list and std::chrono::time_zone?
+What is the difference between std::chrono::reload_tzdb and std::chrono::remote_version?
+What is the difference between std::chrono::weekday and std::chrono::weekday_iso?
+What is the difference between std::chrono::month_weekday and std::chrono::month_day?
+What is the difference between std::chrono::month_day_last and std::chrono::month_weekday_last?
+What is the difference between std::chrono::year_month and std::chrono::year_month_day?
+What is the difference between std::chrono::year_month_weekday and std::chrono::year_month_day?
+What is the difference between std::chrono::leap_second and std::chrono::time_zone?
+What is the difference between std::chrono::sys_days and std::chrono::local_days?
+What is the difference between std::chrono::days and std::chrono::weeks?
+What is the difference between std::chrono::years and std::chrono::months?
+What is the difference between std::chrono::duration_cast and std::chrono::floor?
+What is the difference between std::chrono::ceil and std::chrono::round?
+What is the difference between std::chrono::abs and std::chrono::duration_cast?
+What is the difference between std::chrono::time_point_cast and std::chrono::ceil?
+What is the difference between std::chrono::floor and std::chrono::ceil?
+What is the difference between std::chrono::duration_values and std::chrono::duration?
+What is the difference between std::chrono::treat_as_floating_point and std::chrono::duration?
+What is the difference between std::chrono::duration and std::chrono::time_point?
+What is the difference between std::chrono::clock and std::chrono::system_clock?
+What is the difference between std::chrono::steady_clock and std::chrono::high_resolution_clock?
+What is the difference between std::chrono::is_clock and std::chrono::clock?
+What is the difference between std::chrono::clock_time_conversion and std::chrono::time_point?
+What is the difference between std::chrono::clock_cast and std::chrono::time_point_cast?
+What is the difference between std::chrono::clock_time_conversion and std::chrono::clock_cast?
+What is the difference between std::chrono::utc_clock and std::chrono::tai_clock?
+What is the difference between std::chrono::tai_clock and std::chrono::gps_clock?
+What is the difference between std::chrono::gps_clock and std::chrono::utc_clock?
+What is the difference between std::chrono::file_clock and std::chrono::utc_clock?
+What is the difference between std::chrono::clock and std::chrono::time_zone?
+What is the difference between std::chrono::time_zone and std::chrono::zoned_time?
+What is the difference between std::chrono::zoned_time and std::chrono::local_time?
+What is the difference between std::chrono::local_time and std::chrono::sys_time?
+What is the difference between std::chrono::sys_seconds and std::chrono::local_seconds?
+What is the difference between std::chrono::sys_days and std::chrono::local_days?
+What is the difference between std::chrono::sys_time and std::chrono::local_time?
+What is the difference between std::chrono::sys_info and std::chrono::local_info?
+What is the difference between std::chrono::choose and std::chrono::time_zone?
+What is the difference between std::chrono::ambiguous_local_time and std::chrono::nonexistent_local_time?
+What is the difference between std::chrono::tzdb and std::chrono::time_zone?
+What is the difference between std::chrono::tzdb_list and std::chrono::time_zone?
+What is the difference between std::chrono::get_tzdb and std::chrono::get_tzdb_list?
+What is the difference between std::chrono::current_zone and std::chrono::locate_zone?
+What is the difference between std::chrono::reload_tzdb and std::chrono::remote_version?
+What is the difference between std::chrono::zoned_traits and std::chrono::time_zone?
+What is the difference between std::chrono::nozone and std::chrono::time_zone?
+What is the difference between std::chrono::leap_second_info and std::chrono::time_zone?
+What is the difference between std::chrono::time_zone_link and std::chrono::time_zone?
+What is the difference between std::chrono::time_zone and std::chrono::zoned_time?
+What is the difference between std::chrono::zoned_time and std::chrono::local_time?
+What is the difference between std::chrono::local_time and std::chrono::sys_time?
+What is the difference between std::chrono::sys_seconds and std::chrono::local_seconds?
+What is the difference between std::chrono::sys_days and std::chrono::local_days?
+What is the difference between std::chrono::sys_time and std::chrono::local_time?
+What is the difference between std::chrono::sys_info and std::chrono::local_info?
+What is the difference between std::chrono::choose and std::chrono::time_zone?
+What is the difference between std::chrono::ambiguous_local_time and std::chrono::nonexistent_local_time?
+What is the difference between std::chrono::tzdb and std::chrono::time_zone?
+What is the difference between std::chrono::tzdb_list and std::chrono::time_zone?
+What is the difference between std::chrono::get_tzdb and std::chrono::get_tzdb_list?
+What is the difference between std::chrono::current_zone and std::chrono::locate_zone?
+What is the difference between std::chrono::reload_tzdb and std::chrono::remote_version?
+What is the difference between std::chrono::zoned_traits and std::chrono::time_zone?
+What is the difference between std::chrono::nozone and std::chrono::time_zone?
+What is the difference between std::chrono::leap_second_info and std::chrono::time_zone?
+What is the difference between std::chrono::time_zone_link and std::chrono::time_zone?
+What is the difference between std::memory_order and std::memory_order_*?
+What is the difference between std::atomic and std::atomic_flag?
+What is the difference between std::atomic_ref and std::atomic?
+What is the difference between std::shared_mutex and std::shared_timed_mutex?
+What is the difference between std::scoped_lock and std::lock_guard?
+What is the difference between std::unique_lock and std::scoped_lock?
+What is the difference between std::latch and std::barrier?
+What is the difference between std::barrier and std::flex_barrier?
+What is the difference between std::counting_semaphore and std::binary_semaphore?
+What is the difference between std::semaphore and std::mutex?
+What is the difference between std::notify_all_at_thread_exit and std::condition_variable?
+What is the difference between std::notify_all and std::notify_one?
+What is the difference between std::wait and std::wait_for?
+What is the difference between std::wait_until and std::wait_for?
+What is the difference between std::stop_source and std::stop_token?
+What is the difference between std::stop_callback and std::stop_token?
+What is the difference between std::jthread and std::thread?
+What is the difference between std::thread and std::jthread?
+What is the difference between std::this_thread::sleep_for and std::this_thread::sleep_until?
+What is the difference between std::this_thread::yield and std::this_thread::sleep_for?
+What is the difference between std::this_thread::get_id and std::thread::id?
+What is the difference between std::thread::hardware_concurrency and std::thread::native_handle?
+What is the difference between std::thread::detach and std::thread::join?
+What is the difference between std::thread::join and std::thread::detach?
+What is the difference between std::thread::swap and std::thread::operator=?
+What is the difference between std::jthread::request_stop and std::jthread::stop_source?
+What is the difference between std::jthread::get_stop_token and std::jthread::stop_token?
+What is the difference between std::jthread::get_stop_source and std::jthread::stop_source?
+What is the difference between std::jthread::request_stop and std::jthread::stop_source?
+What is the difference between std::stop_token and std::stop_source?
+What is the difference between std::stop_callback and std::stop_token?
+What is the difference between std::stop_callback and std::function?
+What is the difference between std::stop_callback and std::move_only_function?
+What is the difference between std::move_only_function and std::function?
+What is the difference between std::function and std::move_only_function?
+What is the difference between std::function and std::copyable_function?
+What is the difference between std::copyable_function and std::function?
+What is the difference between std::function and std::any_invocable?
+What is the difference between std::any_invocable and std::function?
+What is the difference between std::function and std::reference_wrapper?
+What is the difference between std::reference_wrapper and std::function?
+What is the difference between std::reference_wrapper and std::weak_ptr?
+What is the difference between std::weak_ptr and std::reference_wrapper?
+What is the difference between std::weak_ptr and std::shared_ptr?
+What is the difference between std::shared_ptr and std::intrusive_ptr?
+What is the difference between std::intrusive_ptr and std::shared_ptr?
+What is the difference between std::intrusive_ptr and std::unique_ptr?
+What is the difference between std::unique_ptr and std::intrusive_ptr?
+What is the difference between std::unique_ptr and std::shared_ptr?
+What is the difference between std::shared_ptr and std::weak_ptr?
+What is the difference between std::weak_ptr and std::shared_ptr?
+What is the difference between std::weak_ptr and std::intrusive_ptr?
+What is the difference between std::observer_ptr and std::weak_ptr?
+What is the difference between std::observer_ptr and std::reference_wrapper?
+What is the difference between std::observer_ptr and std::unique_ptr?
+What is the difference between std::out_ptr and std::inout_ptr?
+What is the difference between std::out_ptr_t and std::inout_ptr_t?
+What is the difference between std::out_ptr and std::inout_ptr?
+What is the difference between std::to_address and std::addressof?
+What is the difference between std::launder and std::assume_aligned?
+What is the difference between std::bit_cast and std::start_lifetime_as?
+What is the difference between std::start_lifetime_as and std::launder?
+What is the difference between std::assume_aligned and std::align?
+What is the difference between std::align and std::aligned_alloc?
+What is the difference between std::aligned_alloc and std::aligned_alloc?
+What is the difference between std::aligned_alloc and std::malloc?
+What is the difference between std::malloc and std::calloc?
+What is the difference between std::calloc and std::realloc?
+What is the difference between std::realloc and std::free?
+What is the difference between std::free and std::operator delete?
+What is the difference between std::operator new and std::operator delete?
+What is the difference between std::operator new and std::malloc?
+What is the difference between std::operator delete and std::free?
+What is the difference between std::nothrow and std::new_handler?
+What is the difference between std::new_handler and std::set_new_handler?
+What is the difference between std::set_new_handler and std::get_new_handler?
+What is the difference between std::get_new_handler and std::new_handler?
+What is the difference between std::bad_alloc and std::bad_array_new_length?
+What is the difference between std::bad_array_new_length and std::bad_alloc?
+What is the difference between std::bad_alloc and std::bad_exception?
+What is the difference between std::bad_exception and std::bad_alloc?
+What is the difference between std::bad_exception and std::exception?
+What is the difference between std::exception and std::logic_error?
+What is the difference between std::logic_error and std::runtime_error?
+What is the difference between std::runtime_error and std::system_error?
+What is the difference between std::system_error and std::ios_base::failure?
+What is the difference between std::ios_base::failure and std::system_error?
+What is the difference between std::system_error and std::future_error?
+What is the difference between std::future_error and std::system_error?
+What is the difference between std::future_error and std::logic_error?
+What is the difference between std::future_error and std::runtime_error?
+What is the difference between std::future_status and std::future_errc?
+What is the difference between std::future_errc and std::future_status?
+What is the difference between std::future_status and std::future_errc?
+What is the difference between std::future_status and std::future_status?
+What is the difference between std::future_status and std::launch?
+What is the difference between std::launch and std::future_status?
+What is the difference between std::launch and std::future_status?
+What is the difference between std::launch and std::future_status?

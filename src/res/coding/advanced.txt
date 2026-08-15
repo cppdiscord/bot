@@ -1,0 +1,60 @@
+What is the difference between std::list and std::vector?
+What is the difference between std::endl and '\n'?
+How does the static keyword affect a class member?
+What is the purpose of the decltype keyword?
+What is move semantics in C++?
+What is perfect forwarding?
+What are variadic templates?
+What is SFINAE?
+What is the difference between lvalue and rvalue?
+What are smart pointers and why use them?
+What is the rule of three/five/zero?
+What is CRTP (Curiously Recurring Template Pattern)?
+What is type erasure in C++?
+What is the difference between std::function and a function pointer?
+What is the difference between std::shared_ptr and std::unique_ptr?
+What is the difference between std::weak_ptr and std::shared_ptr?
+What is the difference between std::move and std::forward?
+What is the difference between std::vector and std::deque?
+What is the difference between std::map and std::unordered_map?
+What is the difference between std::set and std::unordered_set?
+What is the difference between std::multiset and std::set?
+What is the difference between std::multimap and std::map?
+What is the difference between std::array and std::vector?
+What is the difference between std::string and std::string_view?
+What is the difference between std::tuple and std::pair?
+What is the difference between std::variant and std::any?
+What is the difference between std::optional and std::variant?
+What is the difference between std::async and std::thread?
+What is the difference between std::mutex and std::recursive_mutex?
+What is the difference between std::lock_guard and std::unique_lock?
+What is the difference between std::atomic and std::mutex?
+What is the difference between std::condition_variable and std::atomic?
+What is the difference between std::future and std::promise?
+What is the difference between std::packaged_task and std::async?
+What is the difference between std::chrono::system_clock and std::chrono::steady_clock?
+What is the difference between std::istream and std::ostream?
+What is the difference between std::ifstream and std::ofstream?
+What is the difference between std::stringstream and std::fstream?
+What is the difference between std::ios::in and std::ios::out?
+What is the difference between std::ios::app and std::ios::ate?
+What is the difference between std::ios::binary and std::ios::text?
+What is the difference between std::exception and std::logic_error?
+What is the difference between std::runtime_error and std::logic_error?
+What is the difference between std::bad_alloc and std::bad_cast?
+What is the difference between std::bad_typeid and std::bad_exception?
+What is the difference between std::uncaught_exception and std::uncaught_exceptions?
+What is the difference between std::terminate and std::abort?
+What is the difference between std::set_terminate and std::set_unexpected?
+What is the difference between std::nothrow and std::terminate?
+What is the difference between std::make_shared and std::shared_ptr?
+What is the difference between std::make_unique and std::unique_ptr?
+What is the difference between std::allocator and std::pmr::polymorphic_allocator?
+What is the difference between std::vector<bool> and std::vector<char>?
+What is the difference between std::initializer_list and std::array?
+What is the difference between std::span and std::array_view?
+What is the difference between std::byte and char?
+What is the difference between std::error_code and std::error_condition?
+What is the difference between std::system_error and std::logic_error?
+What is the difference between std::filesystem::path and std::string?
+What is the difference between std::filesystem::directory_iterator and std::filesystem::recursive_directory_iterator?
