@@ -2,16 +2,16 @@
 #include "../../globals/globals.h"
 
 void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_create_t& event)
-{
+    {
     dpp::user user = event.msg.author;
     if (!user.is_bot())
-    {
+        {
         bot.message_delete(event.msg.id, event.msg.channel_id);
         if (event.msg.content.empty())
-        {
+            {
             event.reply(dpp::message("You cannot send an empty suggestion. Please add text to your message.").set_flags(dpp::m_ephemeral));
             return;
-        }
+            }
         dpp::embed result = dpp::embed()
             .set_color(globals::color::defaultColor)
             .set_title("Suggestion")
@@ -42,7 +42,7 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
 
         bot.message_create(msg, [&bot](const dpp::confirmation_callback_t& callback) {
             if (!callback.is_error())
-            {
+                {
                 const dpp::message msg = std::get<dpp::message>(callback.value);
                 const dpp::snowflake messageId = msg.id;
                 const dpp::snowflake channelId = msg.channel_id;
@@ -51,46 +51,74 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
                 const auto noEmoji = dpp::find_emoji(globals::emoji::no);
 
                 if (yesEmoji && noEmoji)
-                {
+                    {
                     const std::string yesEmojiText = yesEmoji->format();
                     const std::string noEmojiText = noEmoji->format();
 
                     bot.message_add_reaction(messageId, channelId, yesEmojiText, [&bot, messageId, channelId, noEmojiText](const dpp::confirmation_callback_t& reactionCallback) {
                         if (!reactionCallback.is_error())
                             bot.message_add_reaction(messageId, channelId, noEmojiText);
-                    });
-                }
+                        });
+                    }
                 else
-                {
+                    {
                     // fallback
                     bot.message_add_reaction(messageId, channelId, "👍", [&bot, messageId, channelId](const dpp::confirmation_callback_t& reactionCallback) {
                         if (!reactionCallback.is_error())
                             bot.message_add_reaction(messageId, channelId, "👎");
-                    });
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-}
 
 void utils::suggestion::deleteSuggestion(dpp::cluster& bot, const dpp::button_click_t& event)
-{
+    {
+    if (event.command.msg.embeds.empty())
+        {
+        event.reply(dpp::message("Error: This message is not a valid suggestion.").set_flags(dpp::m_ephemeral));
+        return;
+        }
+
+    if (!event.command.msg.embeds[0].author)
+        {
+        event.reply(dpp::message("Error: Could not determine the author of this suggestion.").set_flags(dpp::m_ephemeral));
+        return;
+        }
+
     std::string clicker = event.command.get_issuing_user().format_username();
     std::string originalAuthor = event.command.msg.embeds[0].author->name;
 
     if (clicker == originalAuthor)
+        {
         bot.message_delete(event.command.msg.id, event.command.msg.channel_id);
+        }
     else
+        {
         event.reply(dpp::message("You can only delete your own suggestions.").set_flags(dpp::m_ephemeral));
-}
+        }
+    }
 
 void utils::suggestion::editSuggestion(dpp::cluster& bot, const dpp::button_click_t& event)
-{
+    {
+    if (event.command.msg.embeds.empty())
+        {
+        event.reply(dpp::message("Error: This message is not a valid suggestion.").set_flags(dpp::m_ephemeral));
+        return;
+        }
+
+    if (!event.command.msg.embeds[0].author)
+        {
+        event.reply(dpp::message("Error: Could not determine the author of this suggestion.").set_flags(dpp::m_ephemeral));
+        return;
+        }
+
     std::string clicker = event.command.get_issuing_user().format_username();
     std::string originalAuthor = event.command.msg.embeds[0].author->name;
 
     if (clicker == originalAuthor)
-    {
+        {
         dpp::interaction_modal_response modal("editModal", "Edit suggestion");
 
         modal.add_component(
@@ -105,28 +133,78 @@ void utils::suggestion::editSuggestion(dpp::cluster& bot, const dpp::button_clic
         );
 
         event.dialog(modal);
-    }
+        }
     else
+        {
         event.reply(dpp::message("You can only edit your own suggestions.").set_flags(dpp::m_ephemeral));
-}
+        }
+    }
 
 void utils::suggestion::showSuggestionEditModal(dpp::cluster& bot, const dpp::form_submit_t& event)
-{
-    std::string v = std::get<std::string>(event.components[0].components[0].value);
-
-    bot.message_get(event.command.msg.id, event.command.msg.channel_id, [&bot, event, v](const dpp::confirmation_callback_t& callback) {
-        if (!callback.is_error())
+    {
+    if (event.components.empty())
         {
-            dpp::message msg = std::get<dpp::message>(callback.value);
-            dpp::embed embed = event.command.msg.embeds[0];
+        event.reply(dpp::message("Error: No data received from the modal.").set_flags(dpp::m_ephemeral));
+        return;
+        }
 
+    if (event.components[0].components.empty())
+        {
+        event.reply(dpp::message("Error: No input data received from the modal.").set_flags(dpp::m_ephemeral));
+        return;
+        }
+
+    std::string v;
+    try
+        {
+        v = std::get<std::string>(event.components[0].components[0].value);
+        }
+        catch (const std::exception& e)
+            {
+            event.reply(dpp::message("Error: Could not read the edited text.").set_flags(dpp::m_ephemeral));
+            return;
+            }
+
+        if (v.empty())
+            {
+            event.reply(dpp::message("Error: You cannot submit an empty suggestion.").set_flags(dpp::m_ephemeral));
+            return;
+            }
+
+        if (event.command.msg.embeds.empty())
+            {
+            event.reply(dpp::message("Error: This suggestion has no embed to edit.").set_flags(dpp::m_ephemeral));
+            return;
+            }
+
+        bot.message_get(event.command.msg.id, event.command.msg.channel_id, [&bot, event, v](const dpp::confirmation_callback_t& callback) {
+            if (callback.is_error())
+                {
+                event.reply(dpp::message("Error: Could not find the original message.").set_flags(dpp::m_ephemeral));
+                return;
+                }
+
+            dpp::message msg = std::get<dpp::message>(callback.value);
+
+            if (msg.embeds.empty())
+                {
+                event.reply(dpp::message("Error: The original message has no embed.").set_flags(dpp::m_ephemeral));
+                return;
+                }
+
+            dpp::embed embed = msg.embeds[0];
             embed.set_description(v);
             msg.embeds[0] = embed;
 
-            bot.message_edit(msg, [&bot, event, embed](const dpp::confirmation_callback_t& callback) {
+            bot.message_edit(msg, [&bot, event](const dpp::confirmation_callback_t& callback) {
                 if (!callback.is_error())
-                    event.reply(dpp::message("Edited!").set_flags(dpp::m_ephemeral));
+                    {
+                    event.reply(dpp::message("Suggestion edited successfully.").set_flags(dpp::m_ephemeral));
+                    }
+                else
+                    {
+                    event.reply(dpp::message(" Failed to edit the suggestion. Please try again.").set_flags(dpp::m_ephemeral));
+                    }
+                });
             });
-        }
-    });
-}
+    }

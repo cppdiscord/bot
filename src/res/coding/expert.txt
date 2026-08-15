@@ -1,0 +1,88 @@
+What is SFINAE and how is it used in template metaprogramming?
+What is the difference between std::enable_if and concepts in C++20?
+What is CRTP (Curiously Recurring Template Pattern) and when would you use it?
+What is type erasure and how can you implement it in C++?
+What is the difference between std::decay and std::remove_reference?
+What are variadic templates and how do you use parameter packs?
+What is perfect forwarding and how does std::forward work?
+What is the difference between lvalue, rvalue, xvalue, glvalue, and prvalue?
+What are move semantics and how do they improve performance?
+What is the rule of three/five/zero and why is it important?
+How does std::shared_ptr implement reference counting?
+What is the difference between std::weak_ptr and std::shared_ptr?
+What is the difference between std::unique_ptr and std::auto_ptr?
+What is the difference between std::move and std::forward?
+What is the difference between std::function and a function pointer?
+What is the difference between std::bind and lambda expressions?
+What is the difference between std::async and std::thread?
+What is the difference between std::future and std::promise?
+What is the difference between std::packaged_task and std::async?
+What is the difference between std::condition_variable and std::atomic?
+What is the difference between std::mutex and std::recursive_mutex?
+What is the difference between std::lock_guard and std::unique_lock?
+What is the difference between std::atomic and std::mutex?
+What is the difference between std::chrono::system_clock and std::chrono::steady_clock?
+What is the difference between std::chrono::high_resolution_clock and std::chrono::steady_clock?
+What is the difference between std::filesystem::path and std::string?
+What is the difference between std::filesystem::directory_iterator and std::recursive_directory_iterator?
+What is the difference between std::pmr::polymorphic_allocator and std::allocator?
+What is the difference between std::vector<bool> and std::vector<char>?
+What is the difference between std::span and std::string_view?
+What is the difference between std::byte and char?
+What is the difference between std::error_code and std::error_condition?
+What is the difference between std::system_error and std::logic_error?
+What is the difference between std::nested_exception and std::exception_ptr?
+What is the difference between std::uncaught_exception and std::uncaught_exceptions?
+What is the difference between std::terminate and std::abort?
+What is the difference between std::set_terminate and std::set_unexpected?
+What is the difference between std::nothrow and std::terminate?
+What is the difference between std::make_shared and std::shared_ptr?
+What is the difference between std::make_unique and std::unique_ptr?
+What is the difference between std::initializer_list and std::array?
+What is the difference between std::tuple and std::pair?
+What is the difference between std::variant and std::any?
+What is the difference between std::optional and std::variant?
+What is the difference between std::nullopt and std::monostate?
+What is the difference between std::in_place and std::in_place_type?
+What is the difference between std::launch::async and std::launch::deferred?
+What is the difference between std::memory_order_relaxed and std::memory_order_acquire?
+What is the difference between std::memory_order_release and std::memory_order_acq_rel?
+What is the difference between std::memory_order_seq_cst and std::memory_order_acquire?
+What is the difference between std::memory_order_consume and std::memory_order_acquire?
+What is the difference between std::memory_order_relaxed and std::memory_order_consume?
+What is the difference between std::atomic_flag and std::atomic<bool>?
+What is the difference between std::atomic_thread_fence and std::atomic_signal_fence?
+What is the difference between std::call_once and std::mutex?
+What is the difference between std::once_flag and std::call_once?
+What is the difference between std::shared_future and std::future?
+What is the difference between std::future_status and std::future_errc?
+What is the difference between std::future_error and std::system_error?
+What is the difference between std::bad_alloc and std::bad_array_new_length?
+What is the difference between std::type_info and std::type_index?
+What is the difference between std::bad_typeid and std::bad_exception?
+What is the difference between std::exception_ptr and std::nested_exception?
+What is the difference between std::rethrow_exception and std::rethrow_if_nested?
+What is the difference between std::current_exception and std::get_current_exception?
+What is the difference between std::make_exception_ptr and std::exception_ptr?
+What is the difference between std::terminate_handler and std::unexpected_handler?
+What is the difference between std::set_terminate and std::set_unexpected?
+What is the difference between std::get_terminate and std::get_unexpected?
+What is the difference between std::uncaught_exception and std::uncaught_exceptions?
+What is the difference between std::nothrow_t and std::nothrow?
+What is the difference between std::align_val_t and std::size_t?
+What is the difference between std::new_handler and std::set_new_handler?
+What is the difference between std::get_new_handler and std::set_new_handler?
+What is the difference between std::bad_alloc and std::bad_array_new_length?
+What is the difference between std::nothrow and std::new_handler?
+What is the difference between std::launder and std::addressof?
+What is the difference between std::assume_aligned and std::align?
+What is the difference between std::align and std::aligned_alloc?
+What is the difference between std::hardware_destructive_interference_size and std::hardware_constructive_interference_size?
+What is the difference between std::has_single_bit and std::has_zero_bit?
+What is the difference between std::bit_ceil and std::bit_floor?
+What is the difference between std::bit_width and std::countr_zero?
+What is the difference between std::countl_zero and std::countr_zero?
+What is the difference between std::countl_one and std::countr_one?
+What is the difference between std::rotl and std::rotr?
+What is the difference between std::byteswap and std::swap?
+What is the difference between std::endian and std::byte?
