@@ -1,0 +1,10 @@
+{
+    "token": "bot token",
+    "emoji_yes_id": "1226134958872199229",
+    "emoji_no_id": "1226134940006219817",
+    "channel_rules_id": "1130464978860785705",
+    "channel_jail_id": "1513269975844917409",
+    "category_ticket_id": "1234179713182732374",
+    "role_staff_id": "1130473404345110621",
+    "role_jail_id": "1506351798900887582"
+}

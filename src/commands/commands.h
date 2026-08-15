@@ -7,10 +7,10 @@
 #include <dpp/dispatcher.h>
 
 namespace cmd
-{
+    {
     /**
-     * @brief Replies with a question in the chat to change the topic
-     * @param bot cluster
+         * @brief Replies with a question in the chat to change the topic
+         * @param bot cluster
      * @param event slash command event
      */
     void topicCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
@@ -51,14 +51,28 @@ namespace cmd
     void projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
     /**
+     * @brief Handles hint button clicks for project ideas
+     * @param bot cluster
+     * @param event button click event
+     */
+    void handleProjectHintButton(dpp::cluster& bot, const dpp::button_click_t& event);
+
+    /**
      * @brief Replies with the rules
      * @param bot cluster
      * @param event slash command event
      */
     void ruleCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
+    /**
+     * @brief Replies with a beginner's guide to C++
+     * @param bot cluster
+     * @param event slash command event
+     */
+    void beginnerCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
     namespace utils
-    {
+        {
         /**
          * @brief Read next line of file, jump to beginning if no next line
          * @param path to the file
@@ -66,19 +80,19 @@ namespace cmd
          * @return content of next line
          */
         std::string readFileLine(const std::string& path, int& index);
+        }
     }
-}
 
 struct cmdStruct
-{
+    {
     std::string name;
     std::string desc;
 
     typedef std::function<void(dpp::cluster&, dpp::slashcommand_t)> cmdFunc;
     cmdFunc function;
 
-    std::list<dpp::command_option> args;
+    std::vector<dpp::command_option> args;
     dpp::permissions permissions;
-};
+    };
 
 #endif // COMMANDS_H

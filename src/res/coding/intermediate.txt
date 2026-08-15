@@ -1,0 +1,64 @@
+What is the difference between int const * and int * const?
+What is the "const" keyword and when is it used?
+What is the virtual function specifier?
+How do you create a constructor?
+How do you create a destructor?
+What is the "protected" access modifier?
+What is the "public" access modifier?
+What is the "private" access modifier?
+What does the sizeof operator do?
+When is the delete keyword used?
+When is the new keyword used?
+What are templates?
+What is Generic programming?
+How do you get the current time?
+How do you get a random number?
+How do you open a file?
+What is the difference between a pointer and a reference?
+How do you initialize a std::map?
+What is the purpose of the namespace keyword?
+What is a lambda function in C++?
+How do you use a std::set?
+What is the difference between struct and class in C++?
+What does the override keyword do?
+How can you handle exceptions in C++?
+What is the role of the explicit keyword?
+What does the keyword inline mean?
+What is the difference between typedef and using?
+How do you iterate over a std::vector?
+How does a for-each loop work in C++?
+What is the difference between malloc and new?
+What is the difference between free and delete?
+What is a virtual destructor, and why is it needed?
+How does polymorphism work in C++?
+How do you implement a pure virtual function?
+What is an abstract class?
+What is a friend function?
+What is the difference between std::list and std::vector?
+How do you declare a constant pointer?
+How do you copy a std::string?
+What is the difference between std::endl and '\n'?
+How can you sort a std::vector?
+How does the static keyword affect a class member?
+How can you create a multi-dimensional array in C++?
+How do you initialize a std::pair?
+What is the purpose of the decltype keyword?
+What is the difference between std::array and std::vector?
+What is the difference between std::string and std::string_view?
+What is the difference between std::tuple and std::pair?
+What is the difference between std::optional and std::variant?
+What is the difference between std::function and a function pointer?
+What is the difference between std::shared_ptr and std::unique_ptr?
+What is the difference between std::weak_ptr and std::shared_ptr?
+What is the difference between std::move and std::forward?
+What is the difference between std::vector and std::deque?
+What is the difference between std::map and std::unordered_map?
+What is the difference between std::set and std::unordered_set?
+What is the difference between std::multiset and std::set?
+What is the difference between std::multimap and std::map?
+What is the difference between std::exception and std::logic_error?
+What is the difference between std::runtime_error and std::logic_error?
+What is the difference between std::bad_alloc and std::bad_cast?
+What is the difference between std::ios::in and std::ios::out?
+What is the difference between std::ifstream and std::ofstream?
+What is the difference between std::stringstream and std::fstream?
