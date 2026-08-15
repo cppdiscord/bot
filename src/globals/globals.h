@@ -11,6 +11,11 @@ namespace globals
         static constexpr int defaultColor = 0x004482;
     }
 
+    namespace channels 
+    {
+        constexpr dpp::snowflake HELP_CHANNEL_ID = 1130466207431135394ULL;
+    }
+
     /**
      * @brief Load configured IDs used by the bot.
      * @param config Parsed config JSON object.
