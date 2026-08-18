@@ -112,20 +112,22 @@ void utils::suggestion::editSuggestion(dpp::cluster& bot, const dpp::button_clic
 
 void utils::suggestion::showSuggestionEditModal(dpp::cluster& bot, const dpp::form_submit_t& event)
 {
-    if (event.components.empty() || event.components[0].components.empty()) {
+    std::string value;
+    if ( std::holds_alternative< std::string >( event.components[0].value ) )
+        value = std::get< std::string >( event.components[0].value );
+
+    if ( value.empty() ) {
         event.reply(dpp::message("Please fill in the suggestion input field.").set_flags(dpp::m_ephemeral));
         return;
     }
 
-    auto v = std::get<std::string>(event.components[0].components[0].value);
-
-    bot.message_get(event.command.msg.id, event.command.msg.channel_id, [&bot, event, v](const dpp::confirmation_callback_t& callback) {
+    bot.message_get(event.command.msg.id, event.command.msg.channel_id, [&bot, event, value](const dpp::confirmation_callback_t& callback) {
         if (!callback.is_error())
         {
             dpp::message msg = std::get<dpp::message>(callback.value);
             dpp::embed embed = event.command.msg.embeds[0];
 
-            embed.set_description(v);
+            embed.set_description(value);
             msg.embeds[0] = embed;
 
             bot.message_edit(msg, [&bot, event, embed](const dpp::confirmation_callback_t& callback) {
