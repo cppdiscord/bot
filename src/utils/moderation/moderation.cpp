@@ -1,6 +1,8 @@
 #include "moderation.h"
 #include "../../globals/globals.h"
 
+#include "blocked_extension.h"
+
 ModerationService::ModerationService(dpp::cluster& bot) : bot(bot) {}
 
 void ModerationService::cleanupOldEntries(const std::chrono::steady_clock::time_point& now)
@@ -38,6 +40,13 @@ std::string ModerationService::makeMessageSignature(const dpp::message& msg)
     return signature;
 }
 
+bool ModerationService::hasBlockedAttachment(const dpp::message& msg)
+{
+    return std::any_of(
+        msg.attachments.begin(), msg.attachments.end(),
+        [](const dpp::attachment& att) { return moderation::hasBlockedExtension(att.filename); });
+}
+
 bool ModerationService::handleMessage(const dpp::message_create_t& event)
 {
     if (event.msg.author.is_bot())
@@ -47,6 +56,19 @@ bool ModerationService::handleMessage(const dpp::message_create_t& event)
         event.msg.attachments.empty() &&
         event.msg.embeds.empty())
         return false;
+
+    if (hasBlockedAttachment(event.msg))
+    {
+        bot.message_delete(event.msg.id, event.msg.channel_id);
+
+        dpp::message blockMessage(
+            event.msg.channel_id,
+            dpp::utility::user_mention(event.msg.author.id) + " " + std::string(executableBlockMsg));
+        blockMessage.set_allowed_mentions(false, false, false, false, {event.msg.author.id}, {});
+        bot.message_create(blockMessage);
+
+        return true;
+    }
 
     const auto now = std::chrono::steady_clock::now();
     const auto userId = event.msg.author.id;

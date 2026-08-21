@@ -35,6 +35,10 @@ private:
         "You have been jailed as you posted the same message on multiple channels. "
         "Please contact a staff member if you think this is a mistake.";
 
+    static constexpr std::string_view executableBlockMsg =
+        "Your message contained an executable attachment, "
+        "which is not allowed and has been removed.";
+
     struct PostedMessage
     {
         dpp::snowflake channelId{};
@@ -49,6 +53,7 @@ private:
     };
 
     static std::string makeMessageSignature(const dpp::message& msg);
+    static bool hasBlockedAttachment(const dpp::message& msg);
     void cleanupOldEntries(const std::chrono::steady_clock::time_point& now);
 
     dpp::cluster& bot;
