@@ -50,6 +50,7 @@ add_executable(bot
 	src/commands/project_cmd.cpp
 	src/commands/rule_cmd.cpp
 	src/commands/beginner.cpp
+	src/commands/help_cmd.cpp 
 
 	# utils
 	src/utils/suggestion/suggestion.cpp

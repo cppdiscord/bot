@@ -71,6 +71,13 @@ namespace cmd
      */
     void beginnerCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
 
+    /**
+     * @brief Replies whit the avaibles commands
+     * @param bot cluster
+     * @param event slash command event
+     */
+    void helpCommand(dpp::cluster& bot, const dpp::slashcommand_t& event);
+
     namespace utils
         {
         /**
