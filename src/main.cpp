@@ -10,33 +10,15 @@
 #include "globals/globals.h"
 #include "utils/suggestion/suggestion.h"
 #include "utils/moderation/moderation.h"
+#include "edit.h"
 
 using json = nlohmann::json;
 
 std::vector<cmdStruct> cmdList = {
-    {
-        "topic",
-        "Get a topic question",
-        cmd::topicCommand
-    },
-
-    {
-        "beginner",
-        "Get a beginner's guide to C++",
-        cmd::beginnerCommand
-    },
-
-    {
-        "coding",
-        "Get a coding question",
-        cmd::codingCommand
-    },
-
-    {
-        "close",
-        "Close a ticket or forum post",
-        cmd::closeCommand
-    },
+    { "topic", "Get a topic question", cmd::topicCommand },
+    { "beginner", "Get a beginner's guide to C++", cmd::beginnerCommand },
+    { "coding", "Get a coding question", cmd::codingCommand },
+    { "close", "Close a ticket or forum post", cmd::closeCommand },
 
     {
         "ticket",
@@ -52,17 +34,8 @@ std::vector<cmdStruct> cmdList = {
         }
     },
 
-    {
-        "code",
-        "Formatting code on Discord",
-        cmd::codeCommand
-    },
-
-    {
-        "project",
-        "Get a project idea",
-        cmd::projectCommand
-    },
+    { "code", "Formatting code on Discord", cmd::codeCommand },
+    { "project", "Get a project idea", cmd::projectCommand },
 
     {
         "rule",
@@ -79,77 +52,16 @@ std::vector<cmdStruct> cmdList = {
     }
 };
 
-
-
-std::vector<dpp::slashcommand> createSlashCommands(
-    const dpp::snowflake& applicationId
-)
-{
-    std::vector<dpp::slashcommand> commands;
-
-    for (const auto& item : cmdList)
-    {
-        dpp::slashcommand command;
-
-        command
-            .set_name(item.name)
-            .set_description(item.desc)
-            .set_application_id(applicationId);
-
-        for (const auto& option : item.args)
-        {
-            command.add_option(option);
-        }
-
-        if (item.permissions)
-        {
-            command.set_default_permissions(
-                dpp::permission(item.permissions)
-            );
-        }
-
-        commands.push_back(command);
-    }
-
-    return commands;
-}
-
-
-bool executeCommand(
-    dpp::cluster& bot,
-    const dpp::slashcommand_t& event
-)
-{
-    const std::string commandName =
-        event.command.get_command_name();
-
-    for (const auto& item : cmdList)
-    {
-        if (item.name == commandName)
-        {
-            item.function(bot, event);
-            return true;
-        }
-    }
-
-    return false;
-}
-
-
 int main()
 {
     std::cout << "[*] Starting bot..." << std::endl;
 
-
-
+    // Load config
     std::ifstream configFile("config.json");
 
     if (!configFile.is_open())
     {
-        std::cerr
-            << "[!] Failed to open config.json"
-            << std::endl;
-
+        std::cerr << "[!] Could not open config.json" << std::endl;
         return 1;
     }
 
@@ -159,22 +71,29 @@ int main()
     {
         configFile >> config;
     }
-    catch (const json::parse_error& error)
+    catch (const json::parse_error& e)
     {
         std::cerr
-            << "[!] Invalid JSON in config.json: "
-            << error.what()
+            << "[!] Invalid config.json: "
+            << e.what()
             << std::endl;
 
         return 1;
     }
 
+    // Check token
+    if (!config.contains("token") ||
+        !config["token"].is_string() ||
+        config["token"].get<std::string>().empty())
+    {
+        std::cerr << "[!] Discord token is missing." << std::endl;
+        return 1;
+    }
 
+    // Load globals
     std::string globalsConfigError;
 
-    if (!globals::loadFromConfig(
-            config,
-            globalsConfigError))
+    if (!globals::loadFromConfig(config, globalsConfigError))
     {
         std::cerr
             << "[!] Invalid configuration: "
@@ -184,30 +103,22 @@ int main()
         return 1;
     }
 
-
-    if (!config.contains("token") ||
-        !config["token"].is_string() ||
-        config["token"].get<std::string>().empty())
-    {
-        std::cerr
-            << "[!] Discord token is missing from config.json"
-            << std::endl;
-
-        return 1;
-    }
-
-    const std::string token =
-        config["token"].get<std::string>();
-
-
-
+    // Create bot
     dpp::cluster bot(
-        token,
+        config["token"].get<std::string>(),
         dpp::i_default_intents |
         dpp::i_message_content
     );
 
     ModerationService moderationService(bot);
+
+    // Edit command system
+    edit::CommandManager editCommands;
+    edit::registerCommands(editCommands);
+
+    // ---------------------------------------------------------
+    // READY
+    // ---------------------------------------------------------
 
     bot.on_ready([&bot](const dpp::ready_t& event)
     {
@@ -224,18 +135,38 @@ int main()
             )
         );
 
-        // Register slash commands once.
         if (dpp::run_once<struct bulkRegister>())
         {
             std::cout
                 << "[*] Registering slash commands..."
                 << std::endl;
 
-            auto slashCommands =
-                createSlashCommands(bot.me.id);
+            std::vector<dpp::slashcommand> slashcommands;
+
+            for (const auto& item : cmdList)
+            {
+                dpp::slashcommand command;
+
+                command
+                    .set_name(item.name)
+                    .set_description(item.desc)
+                    .set_application_id(bot.me.id);
+
+                for (const auto& option : item.args)
+                    command.add_option(option);
+
+                if (item.permissions)
+                {
+                    command.set_default_permissions(
+                        dpp::permission(item.permissions)
+                    );
+                }
+
+                slashcommands.push_back(command);
+            }
 
             bot.global_bulk_command_create(
-                slashCommands,
+                slashcommands,
                 [](const dpp::confirmation_callback_t& callback)
                 {
                     if (callback.is_error())
@@ -244,21 +175,24 @@ int main()
                             << "[!] Failed to register commands: "
                             << callback.get_error().message
                             << std::endl;
-
-                        return;
                     }
-
-                    std::cout
-                        << "[+] Slash commands registered."
-                        << std::endl;
+                    else
+                    {
+                        std::cout
+                            << "[+] Slash commands registered."
+                            << std::endl;
+                    }
                 }
             );
         }
     });
 
+    // ---------------------------------------------------------
+    // SLASH COMMANDS
+    // ---------------------------------------------------------
 
     bot.on_slashcommand(
-        [&bot](const dpp::slashcommand_t& event)
+        [&bot, &editCommands](const dpp::slashcommand_t& event)
         {
             const std::string commandName =
                 event.command.get_command_name();
@@ -266,38 +200,44 @@ int main()
             std::cout
                 << "[COMMAND] /"
                 << commandName
-                << " used by "
-                << event.command.get_issuing_user().username
                 << std::endl;
 
-            if (!executeCommand(bot, event))
+            // Handle commands from edit.cpp
+            if (editCommands.handleCommand(bot, event))
+                return;
+
+            // Handle original commands
+            for (const auto& item : cmdList)
             {
-                std::cerr
-                    << "[!] Unknown command: /"
-                    << commandName
-                    << std::endl;
+                if (item.name == commandName)
+                {
+                    item.function(bot, event);
+                    return;
+                }
             }
+
+            std::cerr
+                << "[!] Unknown command: /"
+                << commandName
+                << std::endl;
         }
     );
 
-
+    // ---------------------------------------------------------
+    // MESSAGE CREATE
+    // ---------------------------------------------------------
 
     bot.on_message_create(
         [&bot, &moderationService](const dpp::message_create_t& event)
         {
-            // Moderation gets first priority.
             if (moderationService.handleMessage(event))
-            {
                 return;
-            }
 
             const dpp::channel* channel =
                 dpp::find_channel(event.msg.channel_id);
 
             if (!channel)
-            {
                 return;
-            }
 
             if (channel->name == "suggestions")
             {
@@ -309,28 +249,30 @@ int main()
         }
     );
 
+    // ---------------------------------------------------------
+    // BUTTONS
+    // ---------------------------------------------------------
 
     bot.on_button_click(
         [&bot](const dpp::button_click_t& event)
         {
-            const std::string& customId =
-                event.custom_id;
-
-            if (customId == "delSuggestion")
+            if (event.custom_id == "delSuggestion")
             {
                 utils::suggestion::deleteSuggestion(
                     bot,
                     event
                 );
             }
-            else if (customId == "editSuggestion")
+            else if (event.custom_id == "editSuggestion")
             {
                 utils::suggestion::editSuggestion(
                     bot,
                     event
                 );
             }
-            else if (customId.starts_with("hint_button_"))
+            else if (
+                event.custom_id.starts_with("hint_button_")
+            )
             {
                 cmd::handleProjectHintButton(
                     bot,
@@ -339,6 +281,10 @@ int main()
             }
         }
     );
+
+    // ---------------------------------------------------------
+    // MODALS
+    // ---------------------------------------------------------
 
     bot.on_form_submit(
         [&bot](const dpp::form_submit_t& event)
@@ -352,6 +298,10 @@ int main()
             }
         }
     );
+
+    // ---------------------------------------------------------
+    // START
+    // ---------------------------------------------------------
 
     std::cout
         << "[*] Connecting to Discord..."
