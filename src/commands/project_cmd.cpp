@@ -82,7 +82,8 @@ void cmd::projectCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     const dpp::embed embed = dpp::embed()
         .set_color(globals::color::defaultColor)
         .add_field("Project Idea", projectTitle)
-        .add_field("Description", projectDescription);
+        .add_field("Description", projectDescription)
+        .add_field("More Ideas?", "Go to [roadmap.sh C++ Projects](https://roadmap.sh/cpp/projects)");
 
     dpp::message message(event.command.channel_id, embed);
 
