@@ -84,7 +84,9 @@ int main()
     });
 
     bot.on_button_click([&bot](const dpp::button_click_t& event) {
-        if (event.custom_id == "delSuggestion")
+        if (event.custom_id == "closeTicket")
+            cmd::closeTicketButton(bot, event);
+        else if (event.custom_id == "delSuggestion")
             utils::suggestion::deleteSuggestion(bot, event);
         else if (event.custom_id == "editSuggestion")
             utils::suggestion::editSuggestion(bot, event);
