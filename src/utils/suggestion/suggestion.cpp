@@ -1,6 +1,34 @@
 #include "suggestion.h"
 #include "../../globals/globals.h"
 
+#include <exception>
+#include <optional>
+#include <string_view>
+
+namespace
+{
+    constexpr std::string_view authorFooterPrefix = "author_id:";
+
+    std::optional<dpp::snowflake> getSuggestionAuthorId(const dpp::message& message)
+    {
+        if (message.embeds.empty() || !message.embeds.front().footer)
+            return std::nullopt;
+
+        const auto& footer = message.embeds.front().footer;
+        if (!footer->text.starts_with(authorFooterPrefix))
+            return std::nullopt;
+
+        try
+        {
+            return dpp::snowflake(footer->text.substr(authorFooterPrefix.size()));
+        }
+        catch (const std::exception&)
+        {
+            return std::nullopt;
+        }
+    }
+}
+
 void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_create_t& event)
 {
     dpp::user user = event.msg.author;
@@ -27,6 +55,7 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
             .set_color(globals::color::defaultColor)
             .set_title("Suggestion")
             .set_author(user.format_username(), "", user.get_avatar_url())
+            .set_footer("author_id:" + user.id.str())
             .set_description(event.msg.content);
 
         dpp::message msg(event.msg.channel_id, result);
@@ -86,10 +115,9 @@ void utils::suggestion::createSuggestion(dpp::cluster& bot, const dpp::message_c
 
 void utils::suggestion::deleteSuggestion(dpp::cluster& bot, const dpp::button_click_t& event)
 {
-    std::string clicker = event.command.get_issuing_user().format_username();
-    std::string originalAuthor = event.command.msg.embeds[0].author->name;
+    const auto originalAuthorId = getSuggestionAuthorId(event.command.msg);
 
-    if (clicker == originalAuthor)
+    if (originalAuthorId && event.command.get_issuing_user().id == *originalAuthorId)
         bot.message_delete(event.command.msg.id, event.command.msg.channel_id);
     else
         event.reply(dpp::message("You can only delete your own suggestions.").set_flags(dpp::m_ephemeral));
@@ -97,10 +125,9 @@ void utils::suggestion::deleteSuggestion(dpp::cluster& bot, const dpp::button_cl
 
 void utils::suggestion::editSuggestion(dpp::cluster& bot, const dpp::button_click_t& event)
 {
-    std::string clicker = event.command.get_issuing_user().format_username();
-    std::string originalAuthor = event.command.msg.embeds[0].author->name;
+    const auto originalAuthorId = getSuggestionAuthorId(event.command.msg);
 
-    if (clicker == originalAuthor)
+    if (originalAuthorId && event.command.get_issuing_user().id == *originalAuthorId)
     {
         dpp::interaction_modal_response modal("editModal", "Edit suggestion");
 
