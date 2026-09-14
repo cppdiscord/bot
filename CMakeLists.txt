@@ -40,7 +40,10 @@ add_executable(bot
 	src/globals/globals.h
 
 	# commands
-	src/commands/commands.h
+    src/ticket_registry.cpp
+    src/ticket_registry.h
+    src/commands/commands.h
+
 	src/commands/utils.cpp
 	src/commands/topic_cmd.cpp
 	src/commands/coding_cmd.cpp
