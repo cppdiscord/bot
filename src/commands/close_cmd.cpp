@@ -1,5 +1,6 @@
-﻿#include "commands.h"
+#include "commands.h"
 #include "../globals/globals.h"
+#include "../ticket_registry.h"
 
 #include <dpp/channel.h>
 #include <dpp/permissions.h>
@@ -39,26 +40,53 @@ void cmd::closeCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
     }
     else if (event.command.channel.parent_id == globals::category::ticketId)
     {
-        event.reply(dpp::message("Closed ticket!"));
-
         bot.channel_get(event.command.channel.id, [&bot, event](const dpp::confirmation_callback_t& callback) {
-            if (!callback.is_error())
+            if (callback.is_error())
             {
-                dpp::channel ticketChannel = std::get<dpp::channel>(callback.value);
-                std::vector<dpp::permission_overwrite> overwrites = ticketChannel.permission_overwrites;
-
-                for (const auto& overwrite : overwrites)
-                {
-                    if (overwrite.type == dpp::overwrite_type::ot_member)
-                    {
-                        bot.channel_edit_permissions(ticketChannel, overwrite.id, 0, dpp::p_view_channel, true);
-                    }
-                }
+                event.reply(dpp::message("Unable to find this ticket.").set_flags(dpp::m_ephemeral));
+                return;
             }
+
+            const auto ticketChannel = std::get<dpp::channel>(callback.value);
+            for (const auto& overwrite : ticketChannel.permission_overwrites)
+            {
+                if (overwrite.type == dpp::overwrite_type::ot_member)
+                    bot.channel_edit_permissions(ticketChannel, overwrite.id, 0, dpp::p_view_channel, true);
+            }
+
+            tickets::registry.removeByChannel(event.command.guild_id, ticketChannel.id);
+            event.reply(dpp::message("Closed ticket!"));
         });
     }
     else
     {
         event.reply(dpp::message("This command only operates within tickets and threads.").set_flags(dpp::m_ephemeral));
     }
+}
+
+void cmd::closeTicketButton(dpp::cluster& bot, const dpp::button_click_t& event)
+{
+    if (event.command.channel.parent_id != globals::category::ticketId)
+    {
+        event.reply(dpp::message("This button only works inside a ticket.").set_flags(dpp::m_ephemeral));
+        return;
+    }
+
+    bot.channel_get(event.command.channel.id, [&bot, event](const dpp::confirmation_callback_t& callback) {
+        if (callback.is_error())
+        {
+            event.reply(dpp::message("Unable to find this ticket.").set_flags(dpp::m_ephemeral));
+            return;
+        }
+
+        const auto ticketChannel = std::get<dpp::channel>(callback.value);
+        for (const auto& overwrite : ticketChannel.permission_overwrites)
+        {
+            if (overwrite.type == dpp::overwrite_type::ot_member)
+                bot.channel_edit_permissions(ticketChannel, overwrite.id, 0, dpp::p_view_channel, true);
+        }
+
+        tickets::registry.removeByChannel(event.command.guild_id, ticketChannel.id);
+        event.reply(dpp::message("Closed ticket!"));
+    });
 }
