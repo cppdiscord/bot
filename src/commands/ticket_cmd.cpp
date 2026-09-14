@@ -38,16 +38,11 @@ void cmd::ticketCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
         if (const auto option = cmdData.options[0]; option.type == dpp::co_user)
         {
             const auto participantId = std::get<dpp::snowflake>(option.value);
-            ticketChannel.set_permission_overwrite(
-                participantId,
-                dpp::overwrite_type::ot_member,
-                ticketPerms,
-                0);
+            ticketChannel.set_permission_overwrite(participantId, dpp::overwrite_type::ot_member,ticketPerms, 0);
         }
     }
 
-    bot.channel_create(ticketChannel, [&bot, event, guildId, userId](
-        const dpp::confirmation_callback_t& callback) {
+    bot.channel_create(ticketChannel, [&bot, event, guildId, userId](const dpp::confirmation_callback_t& callback) {
         if (callback.is_error())
         {
             event.edit_response("Failed to create ticket channel.");
@@ -55,7 +50,6 @@ void cmd::ticketCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
         }
 
         const auto createdChannel = std::get<dpp::channel>(callback.value);
-
         if (!tickets::registry.add(guildId, userId, createdChannel.id))
         {
             bot.channel_delete(createdChannel.id);
@@ -67,7 +61,16 @@ void cmd::ticketCommand(dpp::cluster& bot, const dpp::slashcommand_t& event)
             createdChannel.id,
             event.command.get_issuing_user().get_mention() + " opened this ticket.");
 
-        bot.message_create(pingMessage);
+        dpp::message ticketMessage = pingMessage;
+        ticketMessage.add_component(
+            dpp::component().add_component(
+                dpp::component()
+                    .set_label("Close ticket")
+                    .set_type(dpp::cot_button)
+                    .set_style(dpp::cos_danger)
+                    .set_id("closeTicket")));
+
+        bot.message_create(ticketMessage);
 
         event.edit_response("Ticket " + createdChannel.get_mention() + " created!");
     });
