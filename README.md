@@ -1,5 +1,7 @@
 # C++ Discord Bot
 
+The bot used in the C++ discord server. It has some built in commands.
+
 [![Discord](https://img.shields.io/discord/1130464154344493166)](https://discord.gg/cpp)
 
 ## Setup
