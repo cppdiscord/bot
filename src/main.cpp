@@ -87,7 +87,7 @@ int main()
              || channel->get_type() == dpp::CHANNEL_PRIVATE_THREAD
              || channel->get_type() == dpp::CHANNEL_ANNOUNCEMENT_THREAD;
         
-        if (channel && channel->name == "suggestions" && isThread)
+        if (channel && channel->name == "suggestions" && !isThread)
             utils::suggestion::createSuggestion(bot, event);
     });
 
