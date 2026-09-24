@@ -89,6 +89,8 @@ int main()
         
         if (channel && channel->name == "suggestions" && !isThread)
             utils::suggestion::createSuggestion(bot, event);
+        else if (channel && channel->name == "suggestions")
+            bot.message_delete(event.msg.id, event.msg.channel_id);
     });
 
     bot.on_button_click([&bot](const dpp::button_click_t& event) {
