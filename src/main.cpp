@@ -18,8 +18,8 @@ std::vector<cmdStruct> cmdList = {
     { "ticket", "Open a ticket", cmd::ticketCommand, { dpp::command_option(dpp::command_option_type::co_user, "participant", "Add participant", false) }},
     { "code", "Formatting code on Discord", cmd::codeCommand },
     { "project", "Get a project idea", cmd::projectCommand },
-    { "rule", "Get the server rules", cmd::ruleCommand, { dpp::command_option(dpp::command_option_type::co_integer, "number", "Rule to mention", false) }}
-};
+    { "rule", "Get the server rules", cmd::ruleCommand, { dpp::command_option(dpp::command_option_type::co_integer, "number", "Rule to mention", false) }},
+    { "help", "List all commands or show help for one command", cmd::helpCommand, {dpp::command_option(dpp::command_option_type::co_string, "command", "Command to show help for", false)}}};
 
 int main()
 {
